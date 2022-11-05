@@ -29,7 +29,7 @@ class ResponseHelper {
     }
 
     fun getErrorMsg(): String {
-        return jsonObject["msg"].toString().substring(1, jsonObject["msg"].toString().length-1)
+        return jsonObject["msg"].toString().substring(1, jsonObject["msg"].toString().length - 1)
     }
 
     fun parseFromJsonObject(jsonLine: String?, translatedText: String?): String? {
