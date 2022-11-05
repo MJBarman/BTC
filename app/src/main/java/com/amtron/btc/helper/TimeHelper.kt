@@ -1,9 +1,7 @@
 package com.amtron.btc.helper
 
-import android.R.string
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -19,13 +17,13 @@ class TimeHelper {
         return sdfs.format(dt!!)
     }
 
-    fun getTimeDifference(endTime: String, startTime: String) : String{
+    fun getTimeDifference(endTime: String, startTime: String): String {
         val startTimeDate = SimpleDateFormat("hh:mm a").parse(startTime)
         val endTimeDate = SimpleDateFormat("hh:mm a").parse(endTime)
 
         val timeDiff = endTimeDate!!.time - startTimeDate!!.time
-        val hours = timeDiff/(60*60*1000)
-        val mins = timeDiff/(60*1000)
+        val hours = timeDiff / (60 * 60 * 1000)
+        val mins = timeDiff / (60 * 1000)
 
         val result = if (hours == 0L) {
             "$mins mins"
