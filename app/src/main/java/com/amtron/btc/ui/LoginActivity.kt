@@ -7,12 +7,14 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.amtron.btc.databinding.ActivityLoginBinding
+import com.amtron.btc.helper.ErrorHelper
 import com.amtron.btc.helper.Util
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private lateinit var errorHelper: ErrorHelper
     private lateinit var userString: String
     private var checkInternet: Boolean = false
 
@@ -43,22 +45,18 @@ class LoginActivity : AppCompatActivity() {
                 if (binding.phoneNumber.text.toString().isEmpty()
                     || binding.password.text.toString().isEmpty()
                 ) {
-                    getErrorAlert("Please enter all the fields")
+                    ErrorHelper().getErrorAlert(this, "Please enter all the fields.")
                 } else {
                     if (binding.phoneNumber.text.toString().length == 10) {
-
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
                     } else {
-                        getErrorAlert("Please enter 10 digit phone number.")
+                        ErrorHelper().getErrorAlert(this, "Please enter 10 digit phone number.")
                     }
                 }
             }
         }
     }
 
-    private fun getErrorAlert(text: String) {
-        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-            .setTitleText("ERROR!")
-            .setContentText(text)
-            .show()
-    }
+
 }
