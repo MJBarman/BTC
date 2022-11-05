@@ -5,4 +5,13 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="no_internet_warning_text">No internet available</string>
     <string name="restart">Restart</string>
+    <string name="btc">BODOLAND TERRITORIAL COUNCIL</string>
+    <string name="enter_details">ENTER DETAILS</string>
+    <string name="register_here">REGISTER HERE</string>
+    <string name="logout">LOGOUT</string>
+    <string name="welcome">WELCOME</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="register">REGISTER</string>
+    <string name="change_password">CHANGE PASSWORD</string>
+    <string name="confirm">CONFIRM</string>
 </resources>
