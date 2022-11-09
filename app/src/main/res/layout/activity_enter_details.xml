@@ -129,12 +129,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_state"
-        android:visibility="gone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:hint="State">
+        android:hint="State"
+        android:visibility="gone">
 
         <AutoCompleteTextView
             android:id="@+id/spinner_state_dropdown"
@@ -144,5 +144,14 @@
 
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click">
+
+    </Button>
 
 </LinearLayout>

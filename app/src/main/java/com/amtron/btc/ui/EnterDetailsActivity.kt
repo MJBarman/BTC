@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -22,6 +23,7 @@ class EnterDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_details)
+        val button: Button = findViewById(R.id.button)
         val name: TextInputEditText = findViewById(R.id.name)
         val rg_gender: RadioGroup = findViewById(R.id.rg_gender)
         val rbMale: RadioButton = findViewById(R.id.rb_male)
@@ -32,6 +34,10 @@ class EnterDetailsActivity : AppCompatActivity() {
         val rbForeign: RadioButton = findViewById(R.id.rb_foreign)
         val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_state_dropdown)
         val state: TextInputLayout = findViewById(R.id.spinner_state)
+
+        button.setOnClickListener{
+            //on click
+        }
 
         val listResidency = ArrayList<String>()
         listResidency.add("Hatigaon")
