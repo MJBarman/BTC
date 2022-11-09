@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/font/roboto.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.16875" />
+        <entry key="app/src/main/res/layout/activity_enter_details.xml" value="0.16875" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home2.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
