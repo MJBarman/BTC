@@ -35,7 +35,8 @@ class MasterDataTableActivity : AppCompatActivity() {
         val masterDataList = arrayListOf<MasterData>()
         //Dummy Data
         val masterData: MasterData = MasterData(1, "ravan", 255,
-            "male", "Sri Lanka", "colombo", "Non-BTR")
+            "male", "Sri Lanka", "colombo", "Non-BTR",
+        "2022-11-09")
 
         masterDataList.add(masterData)
         masterDataAdapter = MasterDataAdapter(masterDataList)
