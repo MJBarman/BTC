@@ -49,16 +49,21 @@ class EnterDetailsActivity : AppCompatActivity() {
             ).show()
         }
 
-        rbIndian.setOnCheckedChangeListener{buttonView, isChecked ->
-            country.visibility = View.GONE
-            state.visibility = View.VISIBLE
+        rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (country.visibility == View.VISIBLE) {
+                country.visibility = View.GONE
+            } else {
+                state.visibility = View.VISIBLE
+            }
         }
 
         rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
-            state.visibility = View.GONE
-            country.visibility = View.VISIBLE
+            if (state.visibility == View.VISIBLE) {
+                state.visibility = View.GONE
+            } else {
+                country.visibility = View.VISIBLE
+            }
         }
-
 
 
     }
