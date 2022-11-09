@@ -49,8 +49,10 @@ class EnterDetailsActivity : AppCompatActivity() {
         }
 
         rbIndian.setOnCheckedChangeListener{buttonView, isChecked ->
-            Toast.makeText(this, isChecked.toString().toString(), Toast.LENGTH_SHORT).show()
+            state.visibility = View.VISIBLE
         }
+
+
 
     }
 }
