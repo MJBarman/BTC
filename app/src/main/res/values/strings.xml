@@ -23,4 +23,7 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="india_btr">Indian (BTR)</string>
+    <string name="btr">BTR</string>
+    <string name="non_btr">Non-BTR</string>
+    <string name="residency">Residency</string>
 </resources>
