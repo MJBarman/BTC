@@ -57,14 +57,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/indian" />
+            android:text="@string/male" />
 
         <RadioButton
             android:id="@+id/rb_female"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:text="@string/foreign" />
+            android:text="@string/female" />
     </RadioGroup>
 
     <TextView
@@ -118,12 +118,14 @@
             android:id="@+id/rb_indian"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/indian" />
 
         <RadioButton
             android:id="@+id/rb_foreign"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/foreign" />
     </RadioGroup>
 

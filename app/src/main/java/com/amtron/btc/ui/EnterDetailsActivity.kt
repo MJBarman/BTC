@@ -1,18 +1,10 @@
 package com.amtron.btc.ui
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.view.isVisible
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -35,7 +27,7 @@ class EnterDetailsActivity : AppCompatActivity() {
         val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_state_dropdown)
         val state: TextInputLayout = findViewById(R.id.spinner_state)
 
-        button.setOnClickListener{
+        button.setOnClickListener {
             //on click
         }
 
@@ -45,31 +37,31 @@ class EnterDetailsActivity : AppCompatActivity() {
         listResidency.add("Six Mile")
         listResidency.add("Ganeshguri")
 
-        val numberAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
-            listResidency)
+        val numberAdapter = ArrayAdapter(
+            this, android.R.layout.simple_spinner_dropdown_item, listResidency
+        )
 
         residenSpinner.setAdapter(numberAdapter)
         residenSpinner.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(this, adapterView.getItemAtPosition(i).toString(),
-                Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG
+            ).show()
         }
 
         fun onRadioButtonClicked(view: View) {
             if (view is RadioButton) {
-                // Is the button now checked?
                 val checked = view.isChecked
-
-                // Check which radio button was clicked
                 when (view.getId()) {
-                    R.id.rb_indian ->
-                        if (checked) {
-                            state.isVisible = true
-                        }
-                    R.id.rb_foreign ->
-                        if (checked) {
-                            Toast.makeText(this, "Foreign",
-                                Toast.LENGTH_LONG).show()
-                        }
+                    R.id.rb_indian -> if (checked) {
+                        Toast.makeText(
+                            this, "Indian", Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    R.id.rb_foreign -> if (checked) {
+                        Toast.makeText(
+                            this, "Indian", Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         }
