@@ -52,7 +52,7 @@ class EnterDetailsActivity : AppCompatActivity() {
         rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
             fun showHide(view: View) {
                 view.visibility = if (view.visibility == View.VISIBLE) {
-                    View.INVISIBLE
+                    View.GONE
                 } else {
                     View.VISIBLE
                 }
@@ -63,7 +63,7 @@ class EnterDetailsActivity : AppCompatActivity() {
         rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
             fun showHide(view: View) {
                 view.visibility = if (view.visibility == View.VISIBLE) {
-                    View.INVISIBLE
+                    View.GONE
                 } else {
                     View.VISIBLE
                 }
