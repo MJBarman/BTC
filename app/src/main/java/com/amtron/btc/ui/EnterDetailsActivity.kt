@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.amtron.btc.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -56,8 +57,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                 when (view.getId()) {
                     R.id.rb_indian ->
                         if (checked) {
-                            Toast.makeText(this, "Indian",
-                                Toast.LENGTH_LONG).show()
+                            state.isVisible = true
                         }
                     R.id.rb_foreign ->
                         if (checked) {
