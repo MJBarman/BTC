@@ -26,16 +26,17 @@ class EnterDetailsActivity : AppCompatActivity() {
         val rbForeign: RadioButton = findViewById(R.id.rb_foreign)
         val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_state_dropdown)
         val state: TextInputLayout = findViewById(R.id.spinner_state)
+        val country: TextInputLayout = findViewById(R.id.spinner_country)
 
         button.setOnClickListener {
             //on click
         }
 
         val listResidency = ArrayList<String>()
-        listResidency.add("Hatigaon")
-        listResidency.add("Beltola")
-        listResidency.add("Six Mile")
-        listResidency.add("Ganeshguri")
+        listResidency.add("Assam")
+        listResidency.add("Mizoram")
+        listResidency.add("Arunachal")
+        listResidency.add("Tripura")
 
         val numberAdapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item, listResidency
@@ -49,7 +50,13 @@ class EnterDetailsActivity : AppCompatActivity() {
         }
 
         rbIndian.setOnCheckedChangeListener{buttonView, isChecked ->
+            country.visibility = View.GONE
             state.visibility = View.VISIBLE
+        }
+
+        rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
+            state.visibility = View.GONE
+            country.visibility = View.VISIBLE
         }
 
 
