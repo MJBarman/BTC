@@ -18,4 +18,6 @@
     <string name="foreign">Foreign</string>
     <string name="user_name">Name</string>
     <string name="nationality">Nationality</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
 </resources>
