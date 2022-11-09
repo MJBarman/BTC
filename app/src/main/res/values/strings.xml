@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">BTC</string>
-    <string name="login_text">LOGIN</string>
-    <string name="enter_your_phone_number">Enter your phone number</string>
-    <string name="enter_your_password">Enter your password</string>
-    <string name="no_internet_warning_text">No internet available</string>
-    <string name="restart">Restart</string>
+    <string name="indian">Indian</string>
+    <string name="foreign">Foreign</string>
+    <string name="enter_details">Enter details</string>
+    <string name="user_name">Name</string>
+    <string name="nationality">Nationality</string>
 </resources>
