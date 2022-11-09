@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Spinner
 import android.widget.Toast
 import com.amtron.btc.R
@@ -17,21 +18,19 @@ class EnterDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_details)
 
-        val list_residency = arrayOf("Beltola", "Six Mile", "Jayanagar", "Hatigaon")
 
-        val spinner = findViewById<Spinner>(R.id.spinner_residency_indian)
-        val arrayAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list_residency)
+        val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_residency_indian)
+        val listResidency = ArrayList<String>()
+        listResidency.add("Hatigaon")
+        listResidency.add("Beltola")
+        listResidency.add("Six Nile")
+        listResidency.add("Ganeshguri")
 
-        spinner.adapter = arrayAdapter
-        spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                Toast.makeText(applicationContext, "Selected Residency " + list_residency[p2], Toast.LENGTH_SHORT).show()
-            }
+        val numberAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listResidency)
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
+        residenSpinner.setAdapter(numberAdapter)
+        residenSpinner.setOnItemClickListener { adapterView, view, i, l ->
+            Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show()
         }
 
     }

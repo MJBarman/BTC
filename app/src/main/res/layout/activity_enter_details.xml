@@ -69,10 +69,11 @@
         android:hint="Residency">
 
         <AutoCompleteTextView
+            android:id="@+id/spinner_residency_indian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner_residency_indian"
-            android:inputType="none"/>
+            android:inputType="none"
+            app:simpleItems="@array/simple_items" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
