@@ -55,6 +55,11 @@ class HomeActivity : AppCompatActivity() {
 
         closeNavView.setOnClickListener { drawerLayout.closeDrawer(navView) }
 
+        binding.enterDetailsCard.setOnClickListener {
+            val intent = Intent(this, EnterDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.logoutButton.setOnClickListener {
             Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
             user.login = false

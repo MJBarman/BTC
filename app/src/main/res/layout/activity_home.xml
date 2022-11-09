@@ -57,7 +57,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/selectGhatCard"
+                android:id="@+id/enterDetailsCard"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 app:strokeColor="@color/black_other"
                 app:strokeWidth="2dp"
