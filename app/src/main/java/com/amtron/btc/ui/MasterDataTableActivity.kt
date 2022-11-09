@@ -3,12 +3,15 @@ package com.amtron.btc.ui
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amtron.btc.R
 import com.amtron.btc.adapter.MasterDataAdapter
 import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.databinding.ActivityMasterDataTableBinding
+import com.amtron.btc.helper.NotificationsHelper
+import com.amtron.btc.helper.Util
 import com.amtron.btc.model.MasterData
 
 class MasterDataTableActivity : AppCompatActivity() {
@@ -41,5 +44,14 @@ class MasterDataTableActivity : AppCompatActivity() {
         masterDataList.add(masterData)
         masterDataAdapter = MasterDataAdapter(masterDataList)
         recyclerView.adapter = masterDataAdapter
+
+        binding.sync.setOnClickListener {
+            val checkInternet: Boolean = Util().isOnline(this)
+            if (!checkInternet) {
+                NotificationsHelper().getErrorAlert(this, "No Internet Connection Available")
+            } else {
+                //Proceed with sync
+            }
+        }
     }
 }

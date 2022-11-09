@@ -15,4 +15,5 @@
     <string name="confirm">CONFIRM</string>
     <string name="master_data">MASTER DATA</string>
     <string name="records">RECORDS</string>
+    <string name="sync">SYNC</string>
 </resources>

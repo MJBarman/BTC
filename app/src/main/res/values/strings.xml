@@ -28,4 +28,5 @@
     <string name="btr">BTR</string>
     <string name="non_btr">Non-BTR</string>
     <string name="residency">Residency</string>
+    <string name="sync">SYNC</string>
 </resources>

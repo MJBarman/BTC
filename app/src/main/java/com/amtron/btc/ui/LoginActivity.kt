@@ -3,11 +3,9 @@ package com.amtron.btc.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.helper.NotificationsHelper
-import com.amtron.btc.helper.Util
 import com.amtron.btc.model.User
 import com.google.gson.Gson
 
@@ -33,49 +31,23 @@ class LoginActivity : AppCompatActivity() {
         }
         user = User()
 
-        checkInternet = Util().isOnline(this)
-        if (!checkInternet) {
-            binding.buttonProceed.visibility = View.GONE
-            binding.noInternetWarning.visibility = View.VISIBLE
-            binding.restartBtn.setOnClickListener {
-                finish()
+        if (userString.isNotEmpty()) {
+            if (u.login) {
+                val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(0, 0)
             }
-        } else {
-            if (userString.isNotEmpty()) {
-                if (u.login) {
-                    val intent = Intent(applicationContext, HomeActivity::class.java)
-                    startActivity(intent)
-                }
-            }
+        }
 
-            binding.buttonProceed.setOnClickListener {
-                if (binding.phoneNumber.text.toString().isEmpty()
-                    || binding.password.text.toString().isEmpty()
-                ) {
-                    NotificationsHelper().getWarningAlert(this, "Please enter all the fields.")
-                } else {
-                    if (binding.phoneNumber.text.toString().length == 10) {
-                        if (userString.isNotEmpty()) {
-                            if (u.mobile != binding.phoneNumber.text.toString()) {
-                                editor.clear()
-                                user.mobile = binding.phoneNumber.text.toString()
-                                user.password = binding.password.text.toString()
-                                user.login = true
-                                editor.putString("user", Gson().toJson(user))
-                                editor.apply()
-                                val intent = Intent(applicationContext, HomeActivity::class.java)
-                                startActivity(intent)
-                            } else {
-                                if (u.mobile == binding.phoneNumber.text.toString() && u.password != binding.password.text.toString()) {
-                                    NotificationsHelper().getErrorAlert(this, "Incorrect phone or password.")
-                                } else {
-                                    val intent = Intent(applicationContext, HomeActivity::class.java)
-                                    startActivity(intent)
-                                }
-                            }
-                        } else {
+        binding.buttonProceed.setOnClickListener {
+            if (binding.phoneNumber.text.toString().isEmpty()
+                || binding.password.text.toString().isEmpty()
+            ) {
+                NotificationsHelper().getWarningAlert(this, "Please enter all the fields.")
+            } else {
+                if (binding.phoneNumber.text.toString().length == 10) {
+                    if (userString.isNotEmpty()) {
+                        if (u.mobile != binding.phoneNumber.text.toString()) {
+                            editor.clear()
                             user.mobile = binding.phoneNumber.text.toString()
                             user.password = binding.password.text.toString()
                             user.login = true
@@ -83,10 +55,28 @@ class LoginActivity : AppCompatActivity() {
                             editor.apply()
                             val intent = Intent(applicationContext, HomeActivity::class.java)
                             startActivity(intent)
+                        } else {
+                            if (u.mobile == binding.phoneNumber.text.toString() && u.password != binding.password.text.toString()) {
+                                NotificationsHelper().getErrorAlert(
+                                    this,
+                                    "Incorrect phone or password."
+                                )
+                            } else {
+                                val intent = Intent(applicationContext, HomeActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
                     } else {
-                        NotificationsHelper().getErrorAlert(this, "Please enter 10 digit phone number.")
+                        user.mobile = binding.phoneNumber.text.toString()
+                        user.password = binding.password.text.toString()
+                        user.login = true
+                        editor.putString("user", Gson().toJson(user))
+                        editor.apply()
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
                     }
+                } else {
+                    NotificationsHelper().getErrorAlert(this, "Please enter 10 digit phone number.")
                 }
             }
         }
