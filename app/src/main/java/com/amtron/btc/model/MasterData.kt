@@ -12,5 +12,5 @@ data class MasterData (
     @ColumnInfo(name = "gender") val gender: String?,
     @ColumnInfo(name = "country") val country: String?,
     @ColumnInfo(name = "state") val state: String?,
-    @ColumnInfo(name = "division") val division: String
+    @ColumnInfo(name = "residency") val residency: String
 )

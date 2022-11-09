@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.amtron.btc.R
 import com.amtron.btc.databinding.ActivityHomeBinding
@@ -57,6 +56,11 @@ class HomeActivity : AppCompatActivity() {
 
         binding.enterDetailsCard.setOnClickListener {
             val intent = Intent(this, EnterDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.checkDataCard.setOnClickListener {
+            val intent = Intent(this, MasterDataTableActivity::class.java)
             startActivity(intent)
         }
 

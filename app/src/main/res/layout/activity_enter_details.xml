@@ -151,7 +151,6 @@
             android:id="@+id/rb_indian"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/indian" />
 
 
@@ -159,7 +158,6 @@
             android:id="@+id/rb_foreign"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/foreign" />
     </RadioGroup>
 

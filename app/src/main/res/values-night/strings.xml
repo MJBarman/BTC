@@ -13,4 +13,6 @@
     <string name="register">REGISTER</string>
     <string name="change_password">CHANGE PASSWORD</string>
     <string name="confirm">CONFIRM</string>
+    <string name="master_data">MASTER DATA</string>
+    <string name="records">RECORDS</string>
 </resources>

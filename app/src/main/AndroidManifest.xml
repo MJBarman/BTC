@@ -24,6 +24,9 @@
         android:theme="@style/Theme.BTC"
         tools:targetApi="31">
         <activity
+            android:name=".ui.MasterDataTableActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ChangePasswordActivity"
             android:exported="false" />
         <activity
