@@ -48,22 +48,8 @@ class EnterDetailsActivity : AppCompatActivity() {
             ).show()
         }
 
-        fun onRadioButtonClicked(view: View) {
-            if (view is RadioButton) {
-                val checked = view.isChecked
-                when (view.getId()) {
-                    R.id.rb_indian -> if (checked) {
-                        Toast.makeText(
-                            this, "Indian", Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    R.id.rb_foreign -> if (checked) {
-                        Toast.makeText(
-                            this, "Indian", Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
+        rbIndian.setOnCheckedChangeListener{buttonView, isChecked ->
+            Toast.makeText(this, isChecked.toString().toString(), Toast.LENGTH_SHORT).show()
         }
 
     }
