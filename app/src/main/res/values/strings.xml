@@ -14,4 +14,8 @@
     <string name="register">REGISTER</string>
     <string name="change_password">CHANGE PASSWORD</string>
     <string name="confirm">CONFIRM</string>
+    <string name="indian">Indian</string>
+    <string name="foreign">Foreign</string>
+    <string name="user_name">Name</string>
+    <string name="nationality">Nationality</string>
 </resources>
