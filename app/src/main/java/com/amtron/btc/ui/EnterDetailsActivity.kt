@@ -6,16 +6,18 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.R
+import com.amtron.btc.databinding.ActivityEnterDetailsBinding
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class EnterDetailsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEnterDetailsBinding
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_details)
-        val button: Button = findViewById(R.id.button)
         val name: TextInputEditText = findViewById(R.id.name)
         val rg_gender: RadioGroup = findViewById(R.id.rg_gender)
         val rbMale: RadioButton = findViewById(R.id.rb_male)
@@ -27,10 +29,7 @@ class EnterDetailsActivity : AppCompatActivity() {
         val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_state_dropdown)
         val state: TextInputLayout = findViewById(R.id.spinner_state)
         val country: TextInputLayout = findViewById(R.id.spinner_country)
-
-        button.setOnClickListener {
-            //on click
-        }
+        val proceed: MaterialButton = findViewById(R.id.add_data)
 
         val listResidency = ArrayList<String>()
         listResidency.add("Assam")
@@ -71,5 +70,8 @@ class EnterDetailsActivity : AppCompatActivity() {
             showHide(country)
         }
 
+        proceed.setOnClickListener {
+            Toast.makeText(this, "add data", Toast.LENGTH_SHORT).show()
+        }
     }
 }

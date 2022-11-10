@@ -13,5 +13,6 @@ data class MasterData (
     @ColumnInfo(name = "country") val country: String?,
     @ColumnInfo(name = "state") val state: String?,
     @ColumnInfo(name = "residency") val residency: String,
-    @ColumnInfo(name = "date") val date: String
+    @ColumnInfo(name = "date") val date: String,
+    @ColumnInfo(name = "isSynced") val isSynced: Boolean
 )

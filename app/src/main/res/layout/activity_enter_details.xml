@@ -253,14 +253,12 @@
     </LinearLayout>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:layout_margin="15dp"
         android:padding="15dp"
-        android:id="@+id/button"
+        android:id="@+id/add_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click">
-
-    </Button>
+        android:text="@string/add" />
 
 </LinearLayout>
