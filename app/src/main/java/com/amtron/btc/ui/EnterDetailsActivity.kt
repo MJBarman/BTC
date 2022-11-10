@@ -3,48 +3,30 @@ package com.amtron.btc.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.R
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.amtron.btc.databinding.ActivityEnterDetailsBinding
 
 class EnterDetailsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEnterDetailsBinding
     private val STATE_NAME = "Assam"
     private var found = false
-
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enter_details)
-        val button: Button = findViewById(R.id.add_data)
-        val name: TextInputEditText = findViewById(R.id.name)
-        val rg_gender: RadioGroup = findViewById(R.id.rg_gender)
-        val rbMale: RadioButton = findViewById(R.id.rb_male)
-        val rbFemale: RadioButton = findViewById(R.id.rb_female)
-        val age: TextInputEditText = findViewById(R.id.age)
-        val rgNationality: RadioGroup = findViewById(R.id.rg_nationality)
-        val rbIndian: RadioButton = findViewById(R.id.rb_indian)
-        val rbForeign: RadioButton = findViewById(R.id.rb_foreign)
-        val residenSpinner: AutoCompleteTextView = findViewById(R.id.spinner_state_dropdown)
-        val state: TextInputLayout = findViewById(R.id.spinner_state)
-        val country: TextInputLayout = findViewById(R.id.spinner_country)
-
-        button.setOnClickListener {
-            //on click
-        }
-
+        binding = ActivityEnterDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val stateList = resources.getStringArray(R.array.state_list)
-
-
         val numberAdapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item, stateList
         )
 
-        residenSpinner.setAdapter(numberAdapter)
-        residenSpinner.setOnItemClickListener { adapterView, view, i, l ->
+        binding.spinnerStateDropdown.setAdapter(numberAdapter)
+        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, i, l ->
             for (n in stateList) {
                 if (n == STATE_NAME) {
                     found = true
@@ -56,7 +38,7 @@ class EnterDetailsActivity : AppCompatActivity() {
             }
         }
 
-        rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
             fun showHide(view: View) {
                 view.visibility = if (view.visibility == View.VISIBLE) {
                     View.GONE
@@ -64,10 +46,10 @@ class EnterDetailsActivity : AppCompatActivity() {
                     View.VISIBLE
                 }
             }
-            showHide(state)
+            showHide(binding.spinnerState)
         }
 
-        rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
             fun showHide(view: View) {
                 view.visibility = if (view.visibility == View.VISIBLE) {
                     View.GONE
@@ -75,7 +57,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                     View.VISIBLE
                 }
             }
-            showHide(country)
+            showHide(binding.spinnerCountry)
         }
 
     }

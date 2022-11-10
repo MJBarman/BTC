@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.amtron.btc.model.MasterData
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MasterDataDao {
@@ -12,8 +13,8 @@ interface MasterDataDao {
     @Query("SELECT * FROM MasterData")
     fun getAll(): List<MasterData>
 
-    @Query("SELECT * FROM MasterData WHERE masterId > :id")
-    fun getById(id: Int): MasterData
+    @Query("SELECT * FROM MasterData WHERE masterId = :id")
+    fun getById(id: Int): Flow<MasterData>
     
     @Insert
     fun insert(masterData: MasterData)

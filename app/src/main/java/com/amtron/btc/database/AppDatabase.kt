@@ -1,4 +1,4 @@
-package com.amtron.btc
+package com.amtron.btc.database
 
 import android.content.Context
 import androidx.room.Database
