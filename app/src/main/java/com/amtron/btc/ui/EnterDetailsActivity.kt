@@ -10,6 +10,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class EnterDetailsActivity : AppCompatActivity() {
+    private val STATE_NAME = "Assam"
+    private var found = false
+
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,21 +35,25 @@ class EnterDetailsActivity : AppCompatActivity() {
             //on click
         }
 
-        val listResidency = ArrayList<String>()
-        listResidency.add("Assam")
-        listResidency.add("Mizoram")
-        listResidency.add("Arunachal")
-        listResidency.add("Tripura")
+
+        val stateList = resources.getStringArray(R.array.state_list)
+
 
         val numberAdapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item, listResidency
+            this, android.R.layout.simple_spinner_dropdown_item, stateList
         )
 
         residenSpinner.setAdapter(numberAdapter)
         residenSpinner.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(
-                this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG
-            ).show()
+            for (n in stateList) {
+                if (n == STATE_NAME) {
+                    found = true
+                    Toast.makeText(
+                        this, "Found", Toast.LENGTH_LONG
+                    ).show()
+                    break
+                }
+            }
         }
 
         rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
