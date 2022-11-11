@@ -40,7 +40,7 @@ class MasterDataTableActivity : AppCompatActivity() {
         sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
-        masterDataList = arrayListOf<MasterData>()
+        masterDataList = arrayListOf()
         appDatabase = AppDatabase.getDatabase(this)
         readData()
 
@@ -49,10 +49,6 @@ class MasterDataTableActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
-
-        if (masterDataList.isEmpty()) {
-            NotificationsHelper().getWarningAlert(this, "No Records Found")
-        }
         masterDataAdapter = MasterDataAdapter(masterDataList)
         recyclerView.adapter = masterDataAdapter
 
@@ -69,7 +65,11 @@ class MasterDataTableActivity : AppCompatActivity() {
     private fun readData() {
         GlobalScope.launch(Dispatchers.IO) {
             masterDataList.addAll(appDatabase.MasterDataDao().getAll())
+            Log.d("msg", masterDataList.toString())
+
+            if (masterDataList.isEmpty()) {
+            NotificationsHelper().getWarningAlert(applicationContext, "No Records Found")
         }
-        Log.d("msg", masterDataList.toString())
+        }
     }
 }
