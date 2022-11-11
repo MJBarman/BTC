@@ -14,6 +14,7 @@ import com.amtron.btc.model.MasterData
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
     private lateinit var appDatabase: AppDatabase
+    private lateinit var masterData: MasterData
     private val STATE_NAME = "Assam"
 
     @SuppressLint("WrongViewCast")
@@ -24,11 +25,19 @@ class EnterDetailsActivity : AppCompatActivity() {
 
         appDatabase = AppDatabase.getDatabase(this)
         val stateList = resources.getStringArray(R.array.state_list)
-        val numberAdapter = ArrayAdapter(
+        val foreignList = resources.getStringArray(R.array.foreign_list)
+
+        val stateAdapter = ArrayAdapter(
             this, android.R.layout.simple_spinner_dropdown_item, stateList
         )
+        val foreignAdapter = ArrayAdapter(
+            this, android.R.layout.simple_spinner_dropdown_item, foreignList
+        )
 
-        binding.spinnerStateDropdown.setAdapter(numberAdapter)
+        binding.spinnerStateDropdown.setAdapter(stateAdapter)
+        binding.spinnerCountryDropdown.setAdapter(foreignAdapter)
+
+
         binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, i, l ->
             var item = adapterView.getItemAtPosition(i).toString()
             if (item == STATE_NAME) {
@@ -36,6 +45,10 @@ class EnterDetailsActivity : AppCompatActivity() {
             } else {
                 binding.residencyLl.visibility = View.GONE
             }
+        }
+
+        binding.spinnerCountryDropdown.setOnItemClickListener{adapterView, view, i, l ->
+            //
         }
 
 
@@ -63,6 +76,7 @@ class EnterDetailsActivity : AppCompatActivity() {
 
     private fun addData() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
+//        masterData = MasterData(null, "")
 
     }
 }
