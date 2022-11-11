@@ -1,20 +1,16 @@
 package com.amtron.btc.ui
 
-import android.app.ProgressDialog.show
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.amtron.btc.R
 import com.amtron.btc.adapter.MasterDataAdapter
 import com.amtron.btc.database.AppDatabase
-import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.databinding.ActivityMasterDataTableBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.Util
@@ -33,12 +29,14 @@ class MasterDataTableActivity : AppCompatActivity() {
     private lateinit var masterDataAdapter: MasterDataAdapter
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterDataList: ArrayList<MasterData>
+    private lateinit var context: Context
     private var checkInternet: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMasterDataTableBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        context = this
 
         sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
         editor = sharedPreferences.edit()
@@ -75,8 +73,14 @@ class MasterDataTableActivity : AppCompatActivity() {
             Log.d("msg", masterDataList.toString())
 
             if (masterDataList.isEmpty()) {
-            NotificationsHelper().getWarningAlert(applicationContext, "No Records Found")
-        }
+                runOnUiThread {
+                    Log.d("msg", masterDataList.toString())
+                    NotificationsHelper().getWarningAlert(
+                        context,
+                        "No Records Found"
+                    )
+                }
+            }
         }
     }
 
@@ -86,13 +90,15 @@ class MasterDataTableActivity : AppCompatActivity() {
             .setContentText("Only SYNCED files will be deleted.")
             .setConfirmText("YES DELETE!")
             .setConfirmClickListener {
-                //DELETED
+                GlobalScope.launch(Dispatchers.IO) {
+                    appDatabase.MasterDataDao().deleteBySynced(false)
+                }
                 SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Deleted!")
                     .setContentText("Files deleted!")
                     .setConfirmText("OK")
                     .setConfirmClickListener {
-                        val intent = Intent(this, MasterDataTableActivity::class.java)
+                        val intent = intent
                         startActivity(intent)
                     }
                     .show()
