@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.amtron.btc.R
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityEnterDetailsBinding
@@ -38,27 +40,36 @@ class EnterDetailsActivity : AppCompatActivity() {
         binding.spinnerCountryDropdown.setAdapter(foreignAdapter)
 
 
-        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, i, l ->
-            var item = adapterView.getItemAtPosition(i).toString()
+        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, position, id ->
+            var item = adapterView.getItemAtPosition(position).toString()
             if (item == STATE_NAME) {
-                showHide(binding.residencyLl)
+                binding.residencyLl.visibility = View.VISIBLE
             } else {
                 binding.residencyLl.visibility = View.GONE
             }
         }
 
-        binding.spinnerCountryDropdown.setOnItemClickListener{adapterView, view, i, l ->
+        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, i, l ->
             //
         }
 
 
         binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
-            showHide(binding.spinnerState)
+            if (binding.rbIndian.isChecked) {
+                if (binding.spinnerCountry.isVisible) {
+                    binding.spinnerCountry.visibility = View.GONE
+                }
+                binding.spinnerState.visibility = View.VISIBLE
+            }
         }
 
         binding.rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
-            showHide(binding.spinnerCountry)
-            showHide(binding.residencyLl)
+            if (binding.rbForeign.isChecked) {
+                if (binding.residencyLl.isVisible || binding.spinnerState.isVisible) {
+                    binding.residencyLl.visibility = View.GONE
+                    binding.spinnerState.visibility = View.GONE
+                }
+            }
         }
 
         binding.addData.setOnClickListener {
@@ -66,16 +77,23 @@ class EnterDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHide(view: View) {
-        view.visibility = if (view.visibility == View.VISIBLE) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
 
     private fun addData() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
+        var name = binding.name.text.toString()
+        var age = binding.age.text.toString()
+        lateinit var male: String
+        lateinit var female: String
+
+        if (binding.rbMale.isChecked && !binding.rbFemale.isChecked) {
+            male = "Male"
+            Toast.makeText(this, male, Toast.LENGTH_SHORT).show()
+        } else if (binding.rbFemale.isChecked && !binding.rbMale.isChecked) {
+            female = "Female"
+            Toast.makeText(this, female, Toast.LENGTH_SHORT).show()
+        }
+
+
 //        masterData = MasterData(null, "")
 
     }
