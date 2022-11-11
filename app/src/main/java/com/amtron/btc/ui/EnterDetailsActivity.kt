@@ -2,6 +2,7 @@ package com.amtron.btc.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -55,6 +56,7 @@ class EnterDetailsActivity : AppCompatActivity() {
 
 
         binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.spinnerStateDropdown.setText(null)
             if (binding.rbIndian.isChecked) {
                 if (binding.spinnerCountry.isVisible) {
                     binding.spinnerCountry.visibility = View.GONE
@@ -69,6 +71,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                     binding.residencyLl.visibility = View.GONE
                     binding.spinnerState.visibility = View.GONE
                 }
+                binding.spinnerCountry.visibility = View.VISIBLE
             }
         }
 
@@ -82,19 +85,49 @@ class EnterDetailsActivity : AppCompatActivity() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
         var name = binding.name.text.toString()
         var age = binding.age.text.toString()
-        lateinit var male: String
-        lateinit var female: String
+        var gender: String = ""
+        var residency: String = ""
+        var nationality: String = ""
+        var stateName: String = ""
+        lateinit var country: String
+
 
         if (binding.rbMale.isChecked && !binding.rbFemale.isChecked) {
-            male = "Male"
-            Toast.makeText(this, male, Toast.LENGTH_SHORT).show()
+            gender = "Male"
         } else if (binding.rbFemale.isChecked && !binding.rbMale.isChecked) {
-            female = "Female"
-            Toast.makeText(this, female, Toast.LENGTH_SHORT).show()
+            gender = "Female"
         }
 
+        if (binding.rbIndian.isChecked && !binding.rbForeign.isChecked) {
+            nationality = "Indian"
+        } else if (binding.rbForeign.isChecked && !binding.rbIndian.isChecked) {
+            nationality = "foreign"
+        }
+        country= ""
+        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, position, id ->
+            stateName = adapterView.getItemAtPosition(position).toString()
+        }
+        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, position, id ->
+            country= adapterView.getItemAtPosition(position).toString()
+        }
 
-//        masterData = MasterData(null, "")
+        if (binding.rbBtr.isChecked && !binding.rbNonbtr.isChecked) {
+            residency = "BTR"
+        } else if (binding.rbNonbtr.isChecked && !binding.rbBtr.isChecked) {
+            residency = "Non BTR"
+        }
+
+//        Log.d(
+//            "TAG", "Name: " + name + "Age: " + age + "Male: " + male + "Female: "
+//                    + female + "Indian: " + indian + "Foreign: " + foreign + "StateName: "
+//                    + stateName + "BTR: " + btr + "Non BTR: " + non_btr
+//        )
+
+
+        masterData = MasterData(null, name, Integer.parseInt(age), gender, country,
+            stateName, nationality, residency, date, false)
+
+        Log.d("TAG",  masterData.toString())
 
     }
 }

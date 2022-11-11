@@ -12,6 +12,7 @@ data class MasterData (
     @ColumnInfo(name = "gender") val gender: String?,
     @ColumnInfo(name = "country") val country: String?,
     @ColumnInfo(name = "state") val state: String?,
+    @ColumnInfo(name = "nationality") val nationality: String?,
     @ColumnInfo(name = "residency") val residency: String,
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "isSynced") val isSynced: Boolean
