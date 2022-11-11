@@ -16,7 +16,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var user: User
     private lateinit var u: User
     private lateinit var userString: String
-    private var checkInternet: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

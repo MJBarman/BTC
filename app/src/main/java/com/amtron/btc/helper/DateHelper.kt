@@ -20,7 +20,7 @@ class DateHelper {
 
     fun getTodayOrTomorrow(req: String, format: String) : String{
         val current = LocalDateTime.now()
-        var output: String = ""
+        var output = ""
         if (req == "today") {
             if (format == "dd-MM-yyyy") {
                 val f = DateTimeFormatter.ofPattern("dd-MM-yyyy")

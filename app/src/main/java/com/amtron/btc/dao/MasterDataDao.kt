@@ -1,9 +1,6 @@
 package com.amtron.btc.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.amtron.btc.model.MasterData
 import kotlinx.coroutines.flow.Flow
 
@@ -11,14 +8,14 @@ import kotlinx.coroutines.flow.Flow
 interface MasterDataDao {
 
     @Query("SELECT * FROM MasterData")
-    fun getAll(): List<MasterData>
+    suspend fun getAll(): List<MasterData>
 
-    @Query("SELECT * FROM MasterData WHERE masterId = :id")
-    fun getById(id: Int): Flow<MasterData>
+    @Query("SELECT * FROM MasterData WHERE masterId LIKE :id")
+    suspend fun getById(id: Int): MasterData
     
-    @Insert
-    fun insert(masterData: MasterData)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(masterData: MasterData)
     
-    @Delete
-    fun delete(masterData: MasterData)
+    @Query("DELETE FROM MasterData")
+    suspend fun deleteAll()
 }

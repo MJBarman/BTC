@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class MasterData (
-    @PrimaryKey(autoGenerate = true) val masterId: Int,
+    @PrimaryKey(autoGenerate = true) val masterId: Int?,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "age") val age: Int?,
     @ColumnInfo(name = "gender") val gender: String?,
