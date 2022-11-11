@@ -203,6 +203,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/residency_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
