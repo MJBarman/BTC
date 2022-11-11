@@ -30,4 +30,5 @@
     <string name="residency">Residency</string>
     <string name="sync">SYNC</string>
     <string name="add">ADD</string>
+    <string name="delete">DELETE</string>
 </resources>

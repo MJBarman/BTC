@@ -1,5 +1,7 @@
 package com.amtron.btc.ui
 
+import android.app.ProgressDialog.show
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.amtron.btc.R
 import com.amtron.btc.adapter.MasterDataAdapter
 import com.amtron.btc.database.AppDatabase
@@ -60,6 +63,10 @@ class MasterDataTableActivity : AppCompatActivity() {
                 //Proceed with sync
             }
         }
+
+        binding.delete.setOnClickListener {
+            deleteRecords()
+        }
     }
 
     private fun readData() {
@@ -71,5 +78,32 @@ class MasterDataTableActivity : AppCompatActivity() {
             NotificationsHelper().getWarningAlert(applicationContext, "No Records Found")
         }
         }
+    }
+
+    private fun deleteRecords() {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("WARNING!")
+            .setContentText("Only SYNCED files will be deleted.")
+            .setConfirmText("YES DELETE!")
+            .setConfirmClickListener {
+                //DELETED
+                SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Deleted!")
+                    .setContentText("Files deleted!")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener {
+                        val intent = Intent(this, MasterDataTableActivity::class.java)
+                        startActivity(intent)
+                    }
+                    .show()
+            }
+            .showCancelButton(true)
+            .show()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -17,4 +17,5 @@
     <string name="records">RECORDS</string>
     <string name="sync">SYNC</string>
     <string name="add">ADD</string>
+    <string name="delete">DELETE</string>
 </resources>

@@ -18,4 +18,7 @@ interface MasterDataDao {
     
     @Query("DELETE FROM MasterData")
     suspend fun deleteAll()
+
+//    @Query("DELETE FROM MasterData WHERE isSynced LIKE :true")
+//    suspend fun deleteBySynced()
 }

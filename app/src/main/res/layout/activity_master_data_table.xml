@@ -64,17 +64,32 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/sync"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:text="@string/sync"
                 android:textSize="15sp"
                 app:icon="@drawable/ic_baseline_sync_24"
                 app:iconGravity="textEnd"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/varela_round_regular"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/red_btn_bg_color"
+                android:layout_weight="0.5"
+                android:text="@string/delete"
+                android:textSize="15sp"
+                app:icon="@drawable/ic_baseline_delete_24"
+                app:iconGravity="textEnd"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/varela_round_regular"/>
         </LinearLayout>
     </LinearLayout>
