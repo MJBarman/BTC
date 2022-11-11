@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.R
 import com.amtron.btc.databinding.ActivityEnterDetailsBinding
@@ -12,7 +11,6 @@ import com.amtron.btc.databinding.ActivityEnterDetailsBinding
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
     private val STATE_NAME = "Assam"
-    private var found = false
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +25,8 @@ class EnterDetailsActivity : AppCompatActivity() {
 
         binding.spinnerStateDropdown.setAdapter(numberAdapter)
         binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, i, l ->
-
             var item = adapterView.getItemAtPosition(i).toString()
-
-            if (item == STATE_NAME){
+            if (item == STATE_NAME) {
                 fun showHide(view: View) {
                     view.visibility = if (view.visibility == View.VISIBLE) {
                         View.GONE
@@ -39,7 +35,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                     }
                 }
                 showHide(binding.residencyLl)
-            }else{
+            } else {
                 binding.residencyLl.visibility = View.GONE
             }
         }
