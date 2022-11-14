@@ -2,18 +2,22 @@ package com.amtron.btc.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.amtron.btc.R
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityEnterDetailsBinding
 import com.amtron.btc.helper.DateHelper
+import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.model.MasterData
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
     private lateinit var appDatabase: AppDatabase
@@ -50,7 +54,7 @@ class EnterDetailsActivity : AppCompatActivity() {
             }
         }
         binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            country= adapterView.getItemAtPosition(position).toString()
+            country = adapterView.getItemAtPosition(position).toString()
         }
 
         binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -74,20 +78,17 @@ class EnterDetailsActivity : AppCompatActivity() {
         }
 
         binding.addData.setOnClickListener {
-            addData()
+            getData()
         }
     }
 
-    private fun addData() {
+    private fun getData() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
-        var name = ""
-        var age = ""
+        val name = binding.name.text.toString()
+        val age = binding.age.text.toString()
         var residency = ""
         var gender = ""
         var nationality = ""
-
-        name = binding.name.text.toString()
-        age = binding.age.text.toString()
 
         if (binding.rbMale.isChecked && !binding.rbFemale.isChecked) {
             gender = "Male"
@@ -107,10 +108,76 @@ class EnterDetailsActivity : AppCompatActivity() {
             residency = "Non BTR"
         }
 
-        masterData = MasterData(null, name, Integer.parseInt(age), gender, country,
-            stateName, nationality, residency, date, false)
+        if (name.isEmpty() || age.isEmpty() || gender.isEmpty() || nationality.isEmpty()
+            || date.isEmpty()
+        ) {
+            NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+        } else {
+            if (nationality == "Indian") {
+                if (stateName.isEmpty()) {
+                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                } else if (stateName == "Assam") {
+                    if (residency.isEmpty()) {
+                        NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                    } else {
+                        addData(
+                            name,
+                            Integer.parseInt(age),
+                            gender,
+                            "India",
+                            stateName,
+                            nationality,
+                            residency,
+                            date
+                        )
+                        reset()
+                    }
+                }
+            } else if (nationality == "foreign") {
+                if (country.isEmpty()) {
+                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                } else {
+                    addData(
+                        name,
+                        Integer.parseInt(age),
+                        gender,
+                        country,
+                        "",
+                        nationality,
+                        "",
+                        date
+                    )
+                    reset()
+                }
+            }
+        }
+    }
 
-        Log.d("TAG",  masterData.toString())
+    private fun reset() {
+        binding.name.text = null
+        binding.age.text = null
+        binding.rgGender.clearCheck()
+        binding.rgNationality.clearCheck()
+        binding.rgResidency.clearCheck()
+        binding.spinnerCountryDropdown.text = null
+        binding.spinnerStateDropdown.text = null
+    }
 
+    private fun addData(
+        name: String, age: Int, gender: String, country: String, stateName: String,
+        nationality: String, residency: String, date: String
+    ) {
+        masterData = MasterData(
+            null, name, age, gender, country,
+            stateName, nationality, residency, date, false
+        )
+
+        saveData(masterData)
+    }
+
+    private fun saveData(masterData: MasterData) {
+        GlobalScope.launch(Dispatchers.IO) {
+            appDatabase.MasterDataDao().insert(masterData)
+        }
     }
 }
