@@ -31,4 +31,5 @@
     <string name="sync">SYNC</string>
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
+    <string name="enterdetails">Enter Details</string>
 </resources>

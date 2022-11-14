@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="18dp"
     android:orientation="vertical"
     tools:context=".ui.EnterDetailsActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold"
         android:padding="15dp"
-        android:text="@string/enter_details"
+        android:text="@string/enterdetails"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -26,6 +28,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"
+            android:fontFamily="@font/roboto"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:layout_width="match_parent"
@@ -40,6 +43,7 @@
 
 
         <TextView
+            android:fontFamily="@font/roboto"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,6 +69,7 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:fontFamily="@font/roboto"
                 android:id="@+id/rb_male"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -72,6 +77,7 @@
                 android:text="@string/male" />
 
             <RadioButton
+                android:fontFamily="@font/roboto"
                 android:id="@+id/rb_female"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -89,6 +95,7 @@
 
 
         <TextView
+            android:fontFamily="@font/roboto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -110,6 +117,7 @@
             android:padding="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:fontFamily="@font/roboto"
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
