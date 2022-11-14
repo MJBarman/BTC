@@ -1,13 +1,19 @@
 package com.amtron.btc.network
 
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Headers
+import retrofit2.http.POST
+
 interface Client {
-    /*@Headers("Accept: application/json")
+    @Headers("Accept: application/json")
     @FormUrlEncoded
-    @POST("login")
-    fun getLogin(
-        @Field("mobile") mobile: String?,
-        @Field("password") password: String?
-    ) : Call<JsonObject>*/
+    @POST("")
+    fun getSyncedRecords(
+        @Field("masterData") masterData: String?
+    ) : Call<JsonObject>
 
     /*@Headers("Accept: application/json")
     @GET("getSourceGhats")

@@ -1,5 +1,6 @@
 package com.amtron.btc.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,12 +14,21 @@ import com.amtron.btc.adapter.MasterDataAdapter
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityMasterDataTableBinding
 import com.amtron.btc.helper.NotificationsHelper
+import com.amtron.btc.helper.ResponseHelper
 import com.amtron.btc.helper.Util
 import com.amtron.btc.model.MasterData
+import com.amtron.btc.network.Client
+import com.amtron.btc.network.RetrofitHelper
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @DelicateCoroutinesApi
 class MasterDataTableActivity : AppCompatActivity() {
@@ -31,6 +41,7 @@ class MasterDataTableActivity : AppCompatActivity() {
     private lateinit var masterDataList: ArrayList<MasterData>
     private lateinit var context: Context
     private var checkInternet: Boolean = false
+    private var recordsList: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +69,8 @@ class MasterDataTableActivity : AppCompatActivity() {
             if (!checkInternet) {
                 NotificationsHelper().getErrorAlert(this, "No Internet Connection Available")
             } else {
-                //Proceed with sync
+                //get masterData from server
+                fetchSyncedRecords()
             }
         }
 
@@ -70,7 +82,8 @@ class MasterDataTableActivity : AppCompatActivity() {
     private fun readData() {
         GlobalScope.launch(Dispatchers.IO) {
             masterDataList.addAll(appDatabase.MasterDataDao().getAll())
-            Log.d("msg", masterDataList.toString())
+            recordsList = Gson().toJson(masterDataList)
+            Log.d("msg", recordsList)
 
             if (masterDataList.isEmpty()) {
                 runOnUiThread {
@@ -107,9 +120,47 @@ class MasterDataTableActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun fetchSyncedRecords() {
+        binding.progressbar.show()
+        val api = RetrofitHelper.getInstance().create(Client::class.java)
+        GlobalScope.launch {
+            val call: Call<JsonObject> = api.getSyncedRecords(
+                recordsList
+            )
+            call.enqueue(object : Callback<JsonObject> {
+                @SuppressLint("CommitPrefEdits", "NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: Response<JsonObject>
+                ) {
+                    if (response.isSuccessful) {
+                        binding.progressbar.hide()
+                        val helper = ResponseHelper()
+                        helper.ResponseHelper(response.body())
+                        if (helper.isStatusSuccessful()) {
+//                            val syncedMasterDataList = Gson().fromJson(
+//                                helper.getDataAsString(),
+//                                object : TypeToken<List<MasterData>>() {}.type
+//                            )
+                        } else {
+                            NotificationsHelper().getErrorAlert(context, helper.getErrorMsg())
+                        }
+                    } else {
+                        NotificationsHelper().getErrorAlert(context, "Response Error Code" + response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    NotificationsHelper().getErrorAlert(context, "Server Error")
+                }
+            })
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
 }
+

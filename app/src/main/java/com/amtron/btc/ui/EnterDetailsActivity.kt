@@ -18,7 +18,8 @@ class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterData: MasterData
-    private val STATE_NAME = "Assam"
+    private var stateName = ""
+    private var country = ""
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,23 +41,20 @@ class EnterDetailsActivity : AppCompatActivity() {
         binding.spinnerStateDropdown.setAdapter(stateAdapter)
         binding.spinnerCountryDropdown.setAdapter(foreignAdapter)
 
-
         binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            var item = adapterView.getItemAtPosition(position).toString()
-            if (item == STATE_NAME) {
+            stateName = adapterView.getItemAtPosition(position).toString()
+            if (stateName == "Assam") {
                 binding.residencyLl.visibility = View.VISIBLE
             } else {
                 binding.residencyLl.visibility = View.GONE
             }
         }
-
-        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, i, l ->
-            //
+        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, position, id ->
+            country= adapterView.getItemAtPosition(position).toString()
         }
 
-
         binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
-            binding.spinnerStateDropdown.setText(null)
+            binding.spinnerStateDropdown.text = null
             if (binding.rbIndian.isChecked) {
                 if (binding.spinnerCountry.isVisible) {
                     binding.spinnerCountry.visibility = View.GONE
@@ -80,17 +78,16 @@ class EnterDetailsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun addData() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
-        var name = binding.name.text.toString()
-        var age = binding.age.text.toString()
-        var gender: String = ""
-        var residency: String = ""
-        var nationality: String = ""
-        var stateName: String = ""
-        lateinit var country: String
+        var name = ""
+        var age = ""
+        var residency = ""
+        var gender = ""
+        var nationality = ""
 
+        name = binding.name.text.toString()
+        age = binding.age.text.toString()
 
         if (binding.rbMale.isChecked && !binding.rbFemale.isChecked) {
             gender = "Male"
@@ -103,26 +100,12 @@ class EnterDetailsActivity : AppCompatActivity() {
         } else if (binding.rbForeign.isChecked && !binding.rbIndian.isChecked) {
             nationality = "foreign"
         }
-        country= ""
-        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            stateName = adapterView.getItemAtPosition(position).toString()
-        }
-        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            country= adapterView.getItemAtPosition(position).toString()
-        }
 
         if (binding.rbBtr.isChecked && !binding.rbNonbtr.isChecked) {
             residency = "BTR"
         } else if (binding.rbNonbtr.isChecked && !binding.rbBtr.isChecked) {
             residency = "Non BTR"
         }
-
-//        Log.d(
-//            "TAG", "Name: " + name + "Age: " + age + "Male: " + male + "Female: "
-//                    + female + "Indian: " + indian + "Foreign: " + foreign + "StateName: "
-//                    + stateName + "BTR: " + btr + "Non BTR: " + non_btr
-//        )
-
 
         masterData = MasterData(null, name, Integer.parseInt(age), gender, country,
             stateName, nationality, residency, date, false)
