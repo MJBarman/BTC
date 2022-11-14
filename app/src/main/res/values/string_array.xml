@@ -34,201 +34,201 @@
 
     <string-array name="foreign_list">
         <item>Afghanistan</item>
-        <item>Albania: Tirana</item>
-        <item>Algeria: Algiers</item>
-        <item>Andorra: Andorra la Vella</item>
-        <item>Angola: Luanda</item>
-        <item>Antigua and Barbuda: Saint Johns</item>
-        <item>Argentina: Buenos Aires</item>
-        <item>Armenia: Yerevan</item>
-        <item>Australia: Canberra</item>
-        <item>Austria: Vienna</item>
-        <item>Azerbaijan: Baku</item>
-        <item>The Bahamas: Nassau</item>
-        <item>Bahrain: Manama</item>
-        <item>Bangladesh: Dhaka</item>
-        <item>Barbados: Bridgetown</item>
-        <item>Belarus: Minsk</item>
-        <item>Belgium: Brussels</item>
-        <item>Belize: Belmopan</item>
-        <item>Benin: Porto-Novo</item>
-        <item>Bhutan: Thimphu</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>The Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bhutan</item>
         <item>Bolivia</item>
         <item>Bosnia</item>
         <item>Botswana</item>
-        <item>Brazil: Brasilia</item>
-        <item>Brunei: Bandar Seri Begawan</item>
-        <item>Bulgaria: Sofia</item>
-        <item>Burkina Faso: Ouagadougou</item>
-        <item>Burundi: Gitega (changed from Bujumbura in December 2018)</item>
-        <item>Cambodia: Phnom Penh</item>
-        <item>Cameroon: Yaounde</item>
-        <item>Canada: Ottawa</item>
+        <item>Brazil</item>
+        <item>Brunei</item>
+        <item>Bulgaria</item>
+        <item>Burkina Faso</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
         <item>Cape Verde</item>
         <item>Central African Republic</item>
         <item>Chad</item>
         <item>Chile</item>
         <item>China</item>
-        <item>Colombia: Bogota</item>
-        <item>Comoros: Moroni</item>
-        <item>Congo, Republic of the: Brazzaville</item>
-        <item>Congo, Democratic Republic of the: Kinshasa</item>
-        <item>Costa Rica: San Jose</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo</item>
+        <item>Congo</item>
+        <item>Costa Rica</item>
         <item>Cote dIvoire</item>
-        <item>Croatia: Zagreb</item>
-        <item>Cuba: Havana</item>
-        <item>Cyprus: Nicosia</item>
-        <item>Czech Republic: Prague</item>
-        <item>Denmark: Copenhagen</item>
-        <item>Djibouti: Djibouti</item>
-        <item>Dominica: Roseau</item>
-        <item>Dominican Republic: Santo Domingo</item>
-        <item>East Timor (Timor-Leste): Dili</item>
-        <item>Ecuador: Quito</item>
-        <item>Egypt: Cairo</item>
-        <item>El Salvador: San Salvador</item>
-        <item>Equatorial Guinea: Malabo</item>
-        <item>Eritrea: Asmara</item>
-        <item>Estonia: Tallinn</item>
-        <item>Ethiopia: Addis Ababa</item>
-        <item>Fiji: Suva</item>
-        <item>Finland: Helsinki</item>
-        <item>France: Paris</item>
-        <item>Gabon: Libreville</item>
-        <item>The Gambia: Banjul</item>
-        <item>Georgia: Tbilisi</item>
-        <item>Germany: Berlin</item>
-        <item>Ghana: Accra</item>
-        <item>Greece: Athens</item>
-        <item>Grenada: Saint Georges</item>
-        <item>Guatemala: Guatemala City</item>
-        <item>Guinea: Conakry</item>
-        <item>Guinea-Bissau: Bissau</item>
-        <item>Guyana: Georgetown</item>
-        <item>Haiti: Port-au-Prince</item>
-        <item>Honduras: Tegucigalpa</item>
-        <item>Hungary: Budapest</item>
-        <item>Iceland: Reykjavik</item>
-        <item>Indonesia: Jakarta</item>
-        <item>Iran: Tehran</item>
-        <item>Iraq: Baghdad</item>
-        <item>Ireland: Dublin</item>
-        <item>Israel: Jerusalem</item>
-        <item>Italy: Rome</item>
-        <item>Jamaica: Kingston</item>
-        <item>Japan: Tokyo</item>
-        <item>Jordan: Amman</item>
-        <item>Kazakhstan: Nur-Sultan</item>
-        <item>Kenya: Nairobi</item>
-        <item>Kiribati: Tarawa Atoll</item>
-        <item>Korea, North: Pyongyang</item>
-        <item>Korea, South: Seoul</item>
-        <item>Kosovo: Pristina</item>
-        <item>Kuwait: Kuwait City</item>
-        <item>Kyrgyzstan: Bishkek</item>
-        <item>Laos: Vientiane</item>
-        <item>Latvia: Riga</item>
-        <item>Lebanon: Beirut</item>
-        <item>Lesotho: Maseru</item>
-        <item>Liberia: Monrovia</item>
-        <item>Libya: Tripoli</item>
-        <item>Liechtenstein: Vaduz</item>
-        <item>Lithuania: Vilnius</item>
-        <item>Luxembourg: Luxembourg</item>
-        <item>Macedonia: Skopje</item>
-        <item>Madagascar: Antananarivo</item>
-        <item>Malawi: Lilongwe</item>
-        <item>Malaysia: Kuala Lumpur</item>
-        <item>Maldives: Male</item>
-        <item>Mali: Bamako</item>
-        <item>Malta: Valletta</item>
-        <item>Marshall Islands: Majuro</item>
-        <item>Mauritania: Nouakchott</item>
-        <item>Mauritius: Port Louis</item>
-        <item>Mexico: Mexico City</item>
-        <item>Micronesia, Federated States of: Palikir</item>
-        <item>Moldova: Chisinau</item>
-        <item>Monaco: Monaco</item>
-        <item>Mongolia: Ulaanbaatar</item>
-        <item>Montenegro: Podgorica</item>
-        <item>Morocco: Rabat</item>
-        <item>Mozambique: Maputo</item>
-        <item>Myanmar (Burma): Rangoon (Yangon); Naypyidaw or Nay Pyi Taw (administrative)</item>
-        <item>Namibia: Windhoek</item>
-        <item>Nauru: no official capital; government offices in Yaren District</item>
-        <item>Nepal: Kathmandu</item>
-        <item>Netherlands: Amsterdam; The Hague (seat of government)</item>
-        <item>New Zealand: Wellington</item>
-        <item>Nicaragua: Managua</item>
-        <item>Niger: Niamey</item>
-        <item>Nigeria: Abuja</item>
-        <item>Norway: Oslo</item>
-        <item>Oman: Muscat</item>
-        <item>Pakistan: Islamabad</item>
-        <item>Palau: Melekeok</item>
-        <item>Panama: Panama City</item>
-        <item>Papua New Guinea: Port Moresby</item>
-        <item>Paraguay: Asuncion</item>
-        <item>Peru: Lima</item>
-        <item>Philippines: Manila</item>
-        <item>Poland: Warsaw</item>
-        <item>Portugal: Lisbon</item>
-        <item>Qatar: Doha</item>
-        <item>Romania: Bucharest</item>
-        <item>Russia: Moscow</item>
-        <item>Rwanda: Kigali</item>
-        <item>Saint Kitts and Nevis: Basseterre</item>
-        <item>Saint Lucia: Castries</item>
-        <item>Saint Vincent and the Grenadines: Kingstown</item>
-        <item>Samoa: Apia</item>
-        <item>San Marino: San Marino</item>
-        <item>Sao Tome and Principe: Sao Tome</item>
-        <item>Saudi Arabia: Riyadh</item>
-        <item>Senegal: Dakar</item>
-        <item>Serbia: Belgrade</item>
-        <item>Seychelles: Victoria</item>
-        <item>Sierra Leone: Freetown</item>
-        <item>Singapore: Singapore</item>
-        <item>Slovakia: Bratislava</item>
-        <item>Slovenia: Ljubljana</item>
-        <item>Solomon Islands: Honiara</item>
-        <item>Somalia: Mogadishu</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>East Timor (Timor-Leste)</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Gabon</item>
+        <item>The Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Greece</item>
+        <item>Grenada</item>
+        <item>Guatemala</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kiribati</item>
+        <item>North Korea</item>
+        <item>South Korea</item>
+        <item>Kosovo</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macedonia</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Maldives</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Myanmar</item>
+        <item>Namibia</item>
+        <item>Nauru</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>Rwanda</item>
+        <item>Saint Kitts and Nevis</item>
+        <item>Saint Lucia</item>
+        <item>Saint Vincent and the Grenadines</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Sao Tome and Principe</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
         <item>South Africa</item>
-        <item>South Sudan: Juba</item>
-        <item>Spain: Madrid</item>
-        <item>Sri Lanka: Colombo; Sri Jayewardenepura Kotte (legislative)</item>
-        <item>Sudan: Khartoum</item>
-        <item>Suriname: Paramaribo</item>
-        <item>Swaziland: Mbabane</item>
-        <item>Sweden: Stockholm</item>
-        <item>Switzerland: Bern</item>
-        <item>Syria: Damascus</item>
-        <item>Taiwan: Taipei</item>
-        <item>Tajikistan: Dushanbe</item>
-        <item>Tanzania: Dar es Salaam; Dodoma (legislative)</item>
-        <item>Thailand: Bangkok</item>
-        <item>Togo: Lome</item>
-        <item>Tonga: Nukualofa</item>
-        <item>Trinidad and Tobago: Port-of-Spain</item>
-        <item>Tunisia: Tunis</item>
-        <item>Turkey: Ankara</item>
-        <item>Turkmenistan: Ashgabat</item>
-        <item>Tuvalu: Vaiaku village, Funafuti province</item>
-        <item>Uganda: Kampala</item>
-        <item>Ukraine: Kyiv</item>
-        <item>nited Arab Emirates: Abu Dhabi</item>
-        <item>nited Arab Emirates: Abu Dhabi</item>
-        <item>United Kingdom: London</item>
-        <item>United States of America: Washington, D.C.</item>
-        <item>Uruguay: Montevideo</item>
-        <item>Uzbekistan: Tashkent</item>
-        <item>Vanuatu: Port-Vila</item>
-        <item>Vatican City (Holy See): Vatican City</item>
-        <item>Venezuela: Caracas</item>
-        <item>Vietnam: Hanoi</item>
-        <item>Yemen: Sanaa</item>
-        <item>Zambia: Lusaka</item>
-        <item>Zimbabwe: Harare</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>Taiwan</item>
+        <item>Tajikistan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad and Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turkmenistan</item>
+        <item>Tuvalu</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>United States of America</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Vanuatu</item>
+        <item>Vatican City</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
 
     </string-array>
 </resources>
