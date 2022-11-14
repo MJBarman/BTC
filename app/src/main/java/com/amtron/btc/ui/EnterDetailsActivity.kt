@@ -16,7 +16,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 @DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
@@ -30,6 +29,9 @@ class EnterDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEnterDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val fadeAnimation = android.view.animation.AnimationUtils
+            .loadAnimation(this, com.google.android.material.R.anim.abc_grow_fade_in_from_bottom)
+
 
         appDatabase = AppDatabase.getDatabase(this)
         val stateList = resources.getStringArray(R.array.state_list)
@@ -49,6 +51,7 @@ class EnterDetailsActivity : AppCompatActivity() {
             stateName = adapterView.getItemAtPosition(position).toString()
             if (stateName == "Assam") {
                 binding.residencyLl.visibility = View.VISIBLE
+                binding.residencyLl.startAnimation(fadeAnimation)
             } else {
                 binding.residencyLl.visibility = View.GONE
             }
@@ -64,6 +67,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                     binding.spinnerCountry.visibility = View.GONE
                 }
                 binding.spinnerState.visibility = View.VISIBLE
+                binding.spinnerState.startAnimation(fadeAnimation)
             }
         }
 
@@ -74,6 +78,7 @@ class EnterDetailsActivity : AppCompatActivity() {
                     binding.spinnerState.visibility = View.GONE
                 }
                 binding.spinnerCountry.visibility = View.VISIBLE
+                binding.spinnerCountry.startAnimation(fadeAnimation)
             }
         }
 
@@ -180,4 +185,6 @@ class EnterDetailsActivity : AppCompatActivity() {
             appDatabase.MasterDataDao().insert(masterData)
         }
     }
+
+
 }
