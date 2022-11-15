@@ -18,7 +18,9 @@ import com.amtron.btc.model.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -26,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var userString: String
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
 
         val headerView: View = navView.getHeaderView(0)
         val closeNavView: ImageView = headerView.findViewById(R.id.closeNavView)
-        val user: User = Gson().fromJson(userString, User::class.java)
+        user = Gson().fromJson(userString, User::class.java)
 
         binding.toggle.setOnClickListener {
             drawerLayout.openDrawer(navView)
@@ -79,12 +82,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.logout -> {
-                    Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
-                    user.login = false
-                    editor.putString("user", Gson().toJson(user))
-                    editor.apply()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    showLogoutDialog()
                     true
                 }
                 else -> {
@@ -116,5 +114,30 @@ class HomeActivity : AppCompatActivity() {
             }
             continueBooking?.setOnClickListener { exit.dismiss() }
         }
+    }
+
+    private fun showLogoutDialog() {
+        val logout = BottomSheetDialog(this)
+        logout.setContentView(R.layout.bottom_sheet_exit)
+        val exitText = logout.findViewById<TextView>(R.id.exitText)
+        val exitHeaderText = logout.findViewById<TextView>(R.id.exitHeaderText)
+        val ok = logout.findViewById<Button>(R.id.go_back_btn)
+        val continueBooking = logout.findViewById<Button>(R.id.con_book)
+        exitText?.text = "Are you sure you want to logout?"
+        exitHeaderText?.text = "LOG OUT?"
+        ok?.text = "YES"
+        continueBooking?.text = "CANCEL"
+        logout.show()
+
+        ok?.setOnClickListener {
+            finishAffinity()
+            Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
+            user.login = false
+            editor.putString("user", Gson().toJson(user))
+            editor.apply()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        continueBooking?.setOnClickListener { logout.dismiss() }
     }
 }
