@@ -16,6 +16,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 @DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
@@ -92,8 +93,8 @@ class EnterDetailsActivity : AppCompatActivity() {
 
     private fun getData() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
-        val name = binding.name.text.toString()
-        val age = binding.age.text.toString()
+        val name = binding.name.text.toString().uppercase(Locale.getDefault())
+        val age = binding.age.text.toString().uppercase(Locale.getDefault())
         var residency = ""
         var gender = ""
         var nationality = ""
@@ -116,26 +117,17 @@ class EnterDetailsActivity : AppCompatActivity() {
             residency = "Non BTR"
         }
 
-        if (name.isEmpty() || age.isEmpty() || gender.isEmpty()
-            || nationality.isEmpty() || date.isEmpty()
+        if (name.isEmpty() || age.isEmpty() || gender.isEmpty() || nationality.isEmpty()
+            || date.isEmpty()
         ) {
-            NotificationsHelper().getErrorAlert(
-                this,
-                "Please enter all the fields"
-            )
+            NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
         } else {
             if (nationality == "Indian") {
                 if (stateName.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(
-                        this,
-                        "Please enter all the fields"
-                    )
+                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
                 } else if (stateName == "Assam") {
                     if (residency.isEmpty()) {
-                        NotificationsHelper().getErrorAlert(
-                            this,
-                            "Please enter all the fields"
-                        )
+                        NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
                     } else {
                         addData(
                             name,
@@ -149,17 +141,32 @@ class EnterDetailsActivity : AppCompatActivity() {
                         )
                         reset()
                     }
+                } else {
+                    addData(
+                        name,
+                        Integer.parseInt(age),
+                        gender,
+                        "India",
+                        stateName,
+                        nationality,
+                        "",
+                        date
+                    )
+                    reset()
                 }
             } else if (nationality == "foreign") {
                 if (country.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(
-                        this,
-                        "Please enter all the fields"
-                    )
+                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
                 } else {
                     addData(
-                        name, Integer.parseInt(age), gender, country, "",
-                        nationality, "", date
+                        name,
+                        Integer.parseInt(age),
+                        gender,
+                        country,
+                        "",
+                        nationality,
+                        "",
+                        date
                     )
                     reset()
                 }
@@ -175,21 +182,20 @@ class EnterDetailsActivity : AppCompatActivity() {
         binding.rgResidency.clearCheck()
         binding.spinnerCountryDropdown.text = null
         binding.spinnerStateDropdown.text = null
+        binding.spinnerCountry.visibility = View.GONE
+        binding.spinnerState.visibility = View.GONE
+        binding.residencyLl.visibility = View.GONE
+        NotificationsHelper().getSuccessAlert(this, "Details saved successfully")
+
     }
 
     private fun addData(
-        name: String,
-        age: Int,
-        gender: String,
-        country: String,
-        stateName: String,
-        nationality: String,
-        residency: String,
-        date: String
+        name: String, age: Int, gender: String, country: String, stateName: String,
+        nationality: String, residency: String, date: String
     ) {
         masterData = MasterData(
-            null, name, age, gender, country, stateName, nationality,
-            residency, date, false
+            null, name, age, gender, country,
+            stateName, nationality, residency, date, false
         )
 
         saveData(masterData)

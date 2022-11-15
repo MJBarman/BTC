@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">BTC</string>
+    <string name="app_name">MANAS TIGER RESERVE</string>
     <string name="login_text">LOGIN</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="no_internet_warning_text">No internet available</string>
     <string name="restart">Restart</string>
     <string name="btc">BODOLAND TERRITORIAL COUNCIL</string>
-    <string name="enter_details">ENTER DETAILS</string>
+    <string name="enter_visitor_details">ENTER VISITOR DETAILS</string>
     <string name="register_here">REGISTER HERE</string>
     <string name="logout">LOGOUT</string>
     <string name="welcome">WELCOME</string>
@@ -21,6 +21,7 @@
     <string name="gender">Gender</string>
     <string name="age">Age</string>
     <string name="master_data">MASTER DATA</string>
+    <string name="visitor_details">VISITOR DETAILS</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="india_btr">Indian (BTR)</string>
@@ -32,4 +33,5 @@
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
     <string name="enterdetails">Enter Details</string>
+    <string name="manas_offline_visitor_entry">MANAS OFFLINE VISITOR ENTRY</string>
 </resources>

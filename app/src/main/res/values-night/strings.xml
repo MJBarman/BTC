@@ -18,4 +18,5 @@
     <string name="sync">SYNC</string>
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
+    <string name="manas_offline_visitor_entry">MANAS OFFLINE VISITOR ENTRY</string>
 </resources>

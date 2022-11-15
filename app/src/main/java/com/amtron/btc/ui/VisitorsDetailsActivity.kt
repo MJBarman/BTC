@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.amtron.btc.adapter.MasterDataAdapter
 import com.amtron.btc.database.AppDatabase
-import com.amtron.btc.databinding.ActivityMasterDataTableBinding
+import com.amtron.btc.databinding.ActivityVisitorsDetailsBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.ResponseHelper
 import com.amtron.btc.helper.Util
@@ -31,8 +31,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @DelicateCoroutinesApi
-class MasterDataTableActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMasterDataTableBinding
+class VisitorsDetailsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityVisitorsDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var recyclerView: RecyclerView
@@ -45,7 +45,7 @@ class MasterDataTableActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMasterDataTableBinding.inflate(layoutInflater)
+        binding = ActivityVisitorsDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         context = this
 

@@ -60,16 +60,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.checkDataCard.setOnClickListener {
-            val intent = Intent(this, MasterDataTableActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.logoutButton.setOnClickListener {
-            Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
-            user.login = false
-            editor.putString("user", Gson().toJson(user))
-            editor.apply()
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, VisitorsDetailsActivity::class.java)
             startActivity(intent)
         }
 
@@ -85,6 +76,15 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(
                         Intent(this, ChangePasswordActivity::class.java)
                     )
+                    true
+                }
+                R.id.logout -> {
+                    Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
+                    user.login = false
+                    editor.putString("user", Gson().toJson(user))
+                    editor.apply()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> {

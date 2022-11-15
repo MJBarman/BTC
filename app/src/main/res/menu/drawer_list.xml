@@ -14,4 +14,8 @@
                 android:title="CHANGE PASSWORD" />
         </menu>
     </item>
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_exit_to_app"
+        android:title="@string/logout" />
 </menu>
