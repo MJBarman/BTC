@@ -16,6 +16,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 @DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
@@ -29,8 +30,10 @@ class EnterDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEnterDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val fadeAnimation = android.view.animation.AnimationUtils
-            .loadAnimation(this, com.google.android.material.R.anim.abc_grow_fade_in_from_bottom)
+        val fadeAnimation = android.view.animation.AnimationUtils.loadAnimation(
+            this,
+            com.google.android.material.R.anim.abc_grow_fade_in_from_bottom
+        )
 
 
         appDatabase = AppDatabase.getDatabase(this)
@@ -113,17 +116,26 @@ class EnterDetailsActivity : AppCompatActivity() {
             residency = "Non BTR"
         }
 
-        if (name.isEmpty() || age.isEmpty() || gender.isEmpty() || nationality.isEmpty()
-            || date.isEmpty()
+        if (name.isEmpty() || age.isEmpty() || gender.isEmpty()
+            || nationality.isEmpty() || date.isEmpty()
         ) {
-            NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+            NotificationsHelper().getErrorAlert(
+                this,
+                "Please enter all the fields"
+            )
         } else {
             if (nationality == "Indian") {
                 if (stateName.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                    NotificationsHelper().getErrorAlert(
+                        this,
+                        "Please enter all the fields"
+                    )
                 } else if (stateName == "Assam") {
                     if (residency.isEmpty()) {
-                        NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                        NotificationsHelper().getErrorAlert(
+                            this,
+                            "Please enter all the fields"
+                        )
                     } else {
                         addData(
                             name,
@@ -140,17 +152,14 @@ class EnterDetailsActivity : AppCompatActivity() {
                 }
             } else if (nationality == "foreign") {
                 if (country.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+                    NotificationsHelper().getErrorAlert(
+                        this,
+                        "Please enter all the fields"
+                    )
                 } else {
                     addData(
-                        name,
-                        Integer.parseInt(age),
-                        gender,
-                        country,
-                        "",
-                        nationality,
-                        "",
-                        date
+                        name, Integer.parseInt(age), gender, country, "",
+                        nationality, "", date
                     )
                     reset()
                 }
@@ -169,12 +178,18 @@ class EnterDetailsActivity : AppCompatActivity() {
     }
 
     private fun addData(
-        name: String, age: Int, gender: String, country: String, stateName: String,
-        nationality: String, residency: String, date: String
+        name: String,
+        age: Int,
+        gender: String,
+        country: String,
+        stateName: String,
+        nationality: String,
+        residency: String,
+        date: String
     ) {
         masterData = MasterData(
-            null, name, age, gender, country,
-            stateName, nationality, residency, date, false
+            null, name, age, gender, country, stateName, nationality,
+            residency, date, false
         )
 
         saveData(masterData)
