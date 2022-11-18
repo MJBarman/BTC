@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.amtron.btc.adapter.MasterDataAdapter
+import com.amtron.btc.adapter.RecordsAdapter
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityVisitorsDetailsBinding
 import com.amtron.btc.helper.NotificationsHelper
@@ -21,7 +21,6 @@ import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,7 +35,7 @@ class VisitorsDetailsActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var recyclerView: RecyclerView
-    private lateinit var masterDataAdapter: MasterDataAdapter
+    private lateinit var masterDataAdapter: RecordsAdapter
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterDataList: ArrayList<MasterData>
     private lateinit var context: Context
@@ -61,7 +60,7 @@ class VisitorsDetailsActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
-        masterDataAdapter = MasterDataAdapter(masterDataList)
+        masterDataAdapter = RecordsAdapter(masterDataList)
         recyclerView.adapter = masterDataAdapter
 
         binding.sync.setOnClickListener {

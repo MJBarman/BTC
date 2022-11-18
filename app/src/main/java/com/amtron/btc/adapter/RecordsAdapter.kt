@@ -3,25 +3,19 @@ package com.amtron.btc.adapter
 import android.annotation.SuppressLint
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.amtron.btc.R
-import com.amtron.btc.helper.DateHelper
-import com.amtron.btc.helper.TimeHelper
 import com.amtron.btc.model.MasterData
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
-class MasterDataAdapter(private val masterDataList: List<MasterData>) : RecyclerView.Adapter<MasterDataAdapter.ViewHolder>() {
-    private lateinit var mListener: OnRecyclerViewItemClickListener
-
-//    fun setOnItemClickListener(listener: OnRecyclerViewItemClickListener) {
-//        mListener = listener
-//    }
+class RecordsAdapter(private val masterDataList: List<MasterData>) : RecyclerView.Adapter<RecordsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -53,13 +47,19 @@ class MasterDataAdapter(private val masterDataList: List<MasterData>) : Recycler
         holder.card.setOnClickListener {
             if (holder.linearLayout.visibility == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(holder.card, AutoTransition())
-                holder.linearLayout.visibility = View.GONE
                 holder.expand.text = "EXPAND"
+                holder.linearLayout.visibility = View.GONE
+
             } else {
                 TransitionManager.beginDelayedTransition(holder.card, AutoTransition())
                 holder.expand.text = "COLLAPSE"
                 holder.linearLayout.visibility = View.VISIBLE
             }
+        }
+
+        holder.deleteRecord.setOnClickListener {
+            val recordId = masterData.masterId
+            Log.d("id", recordId.toString())
         }
     }
 
@@ -69,6 +69,7 @@ class MasterDataAdapter(private val masterDataList: List<MasterData>) : Recycler
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val card: MaterialCardView = itemView.findViewById(R.id.dataCard)
+        val deleteRecord: MaterialButton = itemView.findViewById(R.id.delete_record)
         val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
         val expand: TextView = itemView.findViewById(R.id.expand)
         val slNo: TextView = itemView.findViewById(R.id.slNo)

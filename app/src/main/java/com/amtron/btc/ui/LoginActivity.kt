@@ -3,12 +3,16 @@ package com.amtron.btc.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.model.User
 import com.google.gson.Gson
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -27,15 +31,13 @@ class LoginActivity : AppCompatActivity() {
         userString = sharedPreferences.getString("user", "").toString()
         if (userString.isNotEmpty()) {
             u = Gson().fromJson(userString, User::class.java)
-        }
-        user = User()
-
-        if (userString.isNotEmpty()) {
+            Log.d("login", u.toString())
             if (u.login) {
                 val intent = Intent(applicationContext, HomeActivity::class.java)
                 startActivity(intent)
             }
         }
+        user = User()
 
         binding.buttonProceed.setOnClickListener {
             if (binding.phoneNumber.text.toString().isEmpty()
@@ -69,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
                         user.mobile = binding.phoneNumber.text.toString()
                         user.password = binding.password.text.toString()
                         user.login = true
+                        Log.d("user", user.toString())
                         editor.putString("user", Gson().toJson(user))
                         editor.apply()
                         val intent = Intent(applicationContext, HomeActivity::class.java)
