@@ -55,8 +55,8 @@ class VisitorsDetailsActivity : AppCompatActivity() {
 
         binding.bottomBar.onTabSelected = {
             when (it.id){
-                R.id.tab_records-> replaceFragment(UnSyncedFragment())
-                R.id.tab_profile -> replaceFragment(SyncedFragment())
+                R.id.tab_unsync-> replaceFragment(UnSyncedFragment())
+                R.id.tab_sync -> replaceFragment(SyncedFragment())
             }
         }
 
