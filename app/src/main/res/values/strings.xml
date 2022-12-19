@@ -34,4 +34,6 @@
     <string name="delete">DELETE</string>
     <string name="enterdetails">Enter Details</string>
     <string name="manas_offline_visitor_entry">MANAS OFFLINE VISITOR ENTRY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

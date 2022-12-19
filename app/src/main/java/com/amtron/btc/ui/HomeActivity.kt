@@ -4,17 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.amtron.btc.R
 import com.amtron.btc.databinding.ActivityHomeBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.model.User
+import com.amtron.btc.ui.fragments.DashboardFragment
+import com.amtron.btc.ui.fragments.ProfileFragment
+import com.amtron.btc.ui.fragments.RecordsFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -44,52 +46,16 @@ class HomeActivity : AppCompatActivity() {
             NotificationsHelper().getSuccessAlert(this, "Password successfully updated")
         }
 
-        drawerLayout = binding.drawerLayout
-        navView = binding.navView
-
-        val headerView: View = navView.getHeaderView(0)
-        val closeNavView: ImageView = headerView.findViewById(R.id.closeNavView)
-        user = Gson().fromJson(userString, User::class.java)
-
-        binding.toggle.setOnClickListener {
-            drawerLayout.openDrawer(navView)
-        }
-
-        closeNavView.setOnClickListener { drawerLayout.closeDrawer(navView) }
-
-        binding.enterDetailsCard.setOnClickListener {
-            val intent = Intent(this, EnterDetailsActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.checkDataCard.setOnClickListener {
-            val intent = Intent(this, VisitorsDetailsActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.home -> {
-                    startActivity(
-                        Intent(this, HomeActivity::class.java)
-                    )
-                    true
-                }
-                R.id.change_password -> {
-                    startActivity(
-                        Intent(this, ChangePasswordActivity::class.java)
-                    )
-                    true
-                }
-                R.id.logout -> {
-                    showLogoutDialog()
-                    true
-                }
-                else -> {
-                    false
-                }
+        replaceFragment(DashboardFragment())
+        binding.bottomBar.onTabSelected = {
+            when (it.id) {
+                R.id.tab_dashboard -> replaceFragment(DashboardFragment())
+                R.id.tab_records -> replaceFragment(RecordsFragment())
+                R.id.tab_profile -> replaceFragment(ProfileFragment())
             }
         }
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -114,6 +80,13 @@ class HomeActivity : AppCompatActivity() {
             }
             continueBooking?.setOnClickListener { exit.dismiss() }
         }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 
     private fun showLogoutDialog() {
@@ -141,3 +114,51 @@ class HomeActivity : AppCompatActivity() {
         continueBooking?.setOnClickListener { logout.dismiss() }
     }
 }
+
+
+//        drawerLayout = binding.drawerLayout
+//        navView = binding.navView
+//
+//        val headerView: View = navView.getHeaderView(0)
+//        val closeNavView: ImageView = headerView.findViewById(R.id.closeNavView)
+//        user = Gson().fromJson(userString, User::class.java)
+//
+//        binding.toggle.setOnClickListener {
+//            drawerLayout.openDrawer(navView)
+//        }
+//
+//        closeNavView.setOnClickListener { drawerLayout.closeDrawer(navView) }
+//
+//        binding.enterDetailsCard.setOnClickListener {
+//            val intent = Intent(this, EnterDetailsActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        binding.checkDataCard.setOnClickListener {
+//            val intent = Intent(this, VisitorsDetailsActivity::class.java)
+//            startActivity(intent)
+//        }
+
+//        binding.navView.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.home -> {
+//                    startActivity(
+//                        Intent(this, HomeActivity::class.java)
+//                    )
+//                    true
+//                }
+//                R.id.change_password -> {
+//                    startActivity(
+//                        Intent(this, ChangePasswordActivity::class.java)
+//                    )
+//                    true
+//                }
+//                R.id.logout -> {
+//                    showLogoutDialog()
+//                    true
+//                }
+//                else -> {
+//                    false
+//                }
+//            }
+//        }

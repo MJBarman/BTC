@@ -76,4 +76,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.3"
 
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+
+    // BottomNavigation
+    implementation 'nl.joery.animatedbottombar:library:1.1.0'
 }
