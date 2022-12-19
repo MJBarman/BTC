@@ -7,18 +7,21 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.amtron.btc.R
 import com.amtron.btc.adapter.RecordsAdapter
 import com.amtron.btc.database.AppDatabase
-import com.amtron.btc.databinding.ActivityVisitorsDetailsBinding
+import com.amtron.btc.databinding.VisitorDetailsLayoutNewBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.ResponseHelper
-import com.amtron.btc.helper.Util
 import com.amtron.btc.model.MasterData
 import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
+import com.amtron.btc.ui.fragments.SyncedFragment
+import com.amtron.btc.ui.fragments.UnSyncedFragment
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -31,7 +34,7 @@ import retrofit2.Response
 
 @DelicateCoroutinesApi
 class VisitorsDetailsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityVisitorsDetailsBinding
+    private lateinit var binding: VisitorDetailsLayoutNewBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var recyclerView: RecyclerView
@@ -44,9 +47,18 @@ class VisitorsDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityVisitorsDetailsBinding.inflate(layoutInflater)
+        binding = VisitorDetailsLayoutNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         context = this
+
+        replaceFragment(UnSyncedFragment())
+
+        binding.bottomBar.onTabSelected = {
+            when (it.id){
+                R.id.tab_records-> replaceFragment(UnSyncedFragment())
+                R.id.tab_profile -> replaceFragment(SyncedFragment())
+            }
+        }
 
         sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
         editor = sharedPreferences.edit()
@@ -55,27 +67,28 @@ class VisitorsDetailsActivity : AppCompatActivity() {
         appDatabase = AppDatabase.getDatabase(this)
         readData()
 
-        recyclerView = binding.recordsRecyclerView
+//        recyclerView = binding.recordsRecyclerView
 
         val linearLayoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = linearLayoutManager
+//        recyclerView.layoutManager = linearLayoutManager
+//
+//        masterDataAdapter = RecordsAdapter(masterDataList)
+//        recyclerView.adapter = masterDataAdapter
 
-        masterDataAdapter = RecordsAdapter(masterDataList)
-        recyclerView.adapter = masterDataAdapter
 
-        binding.sync.setOnClickListener {
-            checkInternet = Util().isOnline(this)
-            if (!checkInternet) {
-                NotificationsHelper().getErrorAlert(this, "No Internet Connection Available")
-            } else {
-                //get masterData from server
-                fetchSyncedRecords()
-            }
-        }
+//        binding.sync.setOnClickListener {
+//            checkInternet = Util().isOnline(this)
+//            if (!checkInternet) {
+//                NotificationsHelper().getErrorAlert(this, "No Internet Connection Available")
+//            } else {
+//                //get masterData from server
+//                fetchSyncedRecords()
+//            }
+//        }
 
-        binding.delete.setOnClickListener {
-            deleteRecords()
-        }
+//        binding.delete.setOnClickListener {
+//            deleteRecords()
+//        }
     }
 
     private fun readData() {
@@ -120,7 +133,7 @@ class VisitorsDetailsActivity : AppCompatActivity() {
     }
 
     private fun fetchSyncedRecords() {
-        binding.progressbar.show()
+//        binding.progressbar.show()
         val api = RetrofitHelper.getInstance().create(Client::class.java)
         GlobalScope.launch {
             val call: Call<JsonObject> = api.getSyncedRecords(
@@ -133,7 +146,7 @@ class VisitorsDetailsActivity : AppCompatActivity() {
                     response: Response<JsonObject>
                 ) {
                     if (response.isSuccessful) {
-                        binding.progressbar.hide()
+//                        binding.progressbar.hide()
                         val helper = ResponseHelper()
                         helper.ResponseHelper(response.body())
                         if (helper.isStatusSuccessful()) {
@@ -160,6 +173,13 @@ class VisitorsDetailsActivity : AppCompatActivity() {
         super.onBackPressed()
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 }
 

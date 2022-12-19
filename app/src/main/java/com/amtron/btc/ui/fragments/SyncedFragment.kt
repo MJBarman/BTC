@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.amtron.btc.R
 
 
-class ProfileFragment : Fragment() {
+class SyncedFragment : Fragment() {
 
 
     override fun onCreateView(
