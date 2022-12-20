@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_unsync"
+        android:icon="@drawable/ic_baseline_sync_disabled_24"
+        android:title="Un-Synced Visitors" />
+
+    <item
+        android:id="@+id/tab_sync"
+        android:icon="@drawable/ic_baseline_cloud_sync_24"
+        android:title="Synced Visitors" />
+
+</menu>
