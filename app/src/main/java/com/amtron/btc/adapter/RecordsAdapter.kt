@@ -1,25 +1,28 @@
 package com.amtron.btc.adapter
 
 import android.annotation.SuppressLint
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.amtron.btc.R
 import com.amtron.btc.model.MasterData
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 
-class RecordsAdapter(private val masterDataList: List<MasterData>) : RecyclerView.Adapter<RecordsAdapter.ViewHolder>() {
+class RecordsAdapter(private val masterDataList: List<MasterData>) :
+    RecyclerView.Adapter<RecordsAdapter.ViewHolder>() {
+
+    private lateinit var mItemClickListener: OnRecyclerViewItemClickListener
+
+    fun setOnItemClickListener(mItemClickListener: OnRecyclerViewItemClickListener?) {
+        this.mItemClickListener = mItemClickListener!!
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.records_card_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.records_card_layout_new, parent, false)
         return ViewHolder(view)
     }
 
@@ -29,11 +32,17 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) : RecyclerVie
 
         holder.slNo.text = (position + 1).toString()
         holder.visitorName.text = masterData.name
-        holder.ageAndSex.text = StringBuilder().append(masterData.age ).append(" (").append(masterData.gender + ")")
-        holder.country.text = masterData.country
-        holder.state.text = masterData.state
-        holder.residency.text = masterData.residency
-        holder.expand.setOnClickListener {
+        holder.ageAndSex.text =
+            StringBuilder().append(masterData.age).append(" (").append(masterData.gender + ")")
+        if (masterData.residency.isNotEmpty()) {
+            holder.residency.text =
+                masterData.state + " (" + masterData.residency + "), " + masterData.country
+        } else {
+            holder.residency.text = masterData.state + ", " + masterData.country
+
+        }
+
+        /*holder.expand.setOnClickListener {
             if (holder.linearLayout.visibility == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(holder.card, AutoTransition())
                 holder.linearLayout.visibility = View.GONE
@@ -55,11 +64,12 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) : RecyclerVie
                 holder.expand.text = "COLLAPSE"
                 holder.linearLayout.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         holder.deleteRecord.setOnClickListener {
-            val recordId = masterData.masterId
-            Log.d("id", recordId.toString())
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClickListener(position, "delete")
+            }
         }
     }
 
@@ -68,16 +78,19 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) : RecyclerVie
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card: MaterialCardView = itemView.findViewById(R.id.dataCard)
+        //        val card: MaterialCardView = itemView.findViewById(R.id.dataCard)
         val deleteRecord: MaterialButton = itemView.findViewById(R.id.delete_record)
-        val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
-        val expand: TextView = itemView.findViewById(R.id.expand)
+
+        //        val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
+//        val expand: TextView = itemView.findViewById(R.id.expand)
         val slNo: TextView = itemView.findViewById(R.id.slNo)
         val visitorName: TextView = itemView.findViewById(R.id.visitorName)
-//        val date: TextView = itemView.findViewById(R.id.date)
+
+        //        val date: TextView = itemView.findViewById(R.id.date)
         val ageAndSex: TextView = itemView.findViewById(R.id.age_and_sex)
-        val country: TextView = itemView.findViewById(R.id.country)
-        val state: TextView = itemView.findViewById(R.id.state)
+
+        //        val country: TextView = itemView.findViewById(R.id.country)
+//        val state: TextView = itemView.findViewById(R.id.state)
         val residency: TextView = itemView.findViewById(R.id.residency)
     }
 }

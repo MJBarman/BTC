@@ -10,6 +10,12 @@ interface MasterDataDao {
     @Query("SELECT * FROM MasterData")
     suspend fun getAll(): List<MasterData>
 
+    @Query("SELECT * FROM MasterData WHERE isSynced = 0")
+    suspend fun getUnSyncedMasterData(): List<MasterData>
+
+    @Query("SELECT * FROM MasterData WHERE isSynced = 1")
+    suspend fun getSyncedMasterData(): List<MasterData>
+
     @Query("SELECT * FROM MasterData WHERE masterId LIKE :id")
     suspend fun getById(id: Int): MasterData
     
