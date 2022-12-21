@@ -19,7 +19,7 @@ import com.amtron.btc.databinding.FragmentSyncedBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.ResponseHelper
 import com.amtron.btc.helper.Util
-import com.amtron.btc.model.MasterData
+import com.amtron.btc.model.*
 import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
 import com.google.gson.Gson
@@ -31,7 +31,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class SyncedFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -40,6 +39,10 @@ class SyncedFragment : Fragment() {
     private lateinit var masterDataAdapter: RecordsAdapter
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterDataList: ArrayList<MasterData>
+    private lateinit var countries: ArrayList<Country>
+    private lateinit var states: ArrayList<State>
+    private lateinit var domicile: ArrayList<Domicile>
+    private lateinit var loginCredentials: LoginCredentials
     private var checkInternet: Boolean = false
     private var recordsList: String = ""
     private var _binding: FragmentSyncedBinding? = null
@@ -54,8 +57,10 @@ class SyncedFragment : Fragment() {
 
         mContext = container!!.context
         sharedPreferences =
-            this.activity!!.getSharedPreferences("file", AppCompatActivity.MODE_PRIVATE)
+            this.requireActivity().getSharedPreferences("file", AppCompatActivity.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+
+
 
         masterDataList = arrayListOf()
         appDatabase = AppDatabase.getDatabase(mContext)
@@ -88,7 +93,7 @@ class SyncedFragment : Fragment() {
             recordsList = Gson().toJson(masterDataList)
 
             if (masterDataList.isEmpty()) {
-                activity!!.runOnUiThread {
+                requireActivity().runOnUiThread {
                     NotificationsHelper().getWarningAlert(
                         mContext,
                         "No Records Found"

@@ -4,12 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.ResponseHelper
+import com.amtron.btc.model.LoginCredentials
 import com.amtron.btc.model.User
 import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
@@ -70,12 +69,11 @@ class LoginActivity : AppCompatActivity() {
                                     val helper = ResponseHelper()
                                     helper.ResponseHelper(response.body())
                                     if (helper.isStatusSuccessful()) {
-                                        userString = helper.getDataAsString()
-                                        user = Gson().fromJson(
-                                            userString,
-                                            object : TypeToken<User>() {}.type
+                                        val loginCredentials: LoginCredentials = Gson().fromJson(
+                                            helper.getDataAsString(),
+                                            object : TypeToken<LoginCredentials>() {}.type
                                         )
-                                        editor.putString("user", Gson().toJson(user))
+                                        editor.putString("loginCredentials", Gson().toJson(loginCredentials))
                                         editor.apply()
                                         val intent = Intent(applicationContext, HomeActivity::class.java)
                                         startActivity(intent)

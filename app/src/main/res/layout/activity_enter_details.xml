@@ -16,7 +16,6 @@
             android:orientation="vertical"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,24 +29,49 @@
                 android:layout_marginBottom="18dp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_name"
-                android:padding="30dp"
-                app:startIconDrawable="@drawable/ic_baseline_person_24">
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
-                    android:fontFamily="@font/roboto"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:textAllCaps="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:hint="@string/user_name"
+                    android:padding="30dp"
+                    app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:fontFamily="@font/roboto"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:textAllCaps="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:hint="@string/age"
+                    android:padding="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:fontFamily="@font/roboto"
+                        android:id="@+id/age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_person_outline_24"
+                        android:drawablePadding="10dp"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,54 +122,7 @@
                         android:layout_weight="3"
                         android:text="@string/female" />
                 </RadioGroup>
-
-
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="23dp"
-                android:paddingEnd="23dp"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:fontFamily="@font/roboto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/age"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:hint="@string/age"
-                    android:padding="15dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:fontFamily="@font/roboto"
-                        android:id="@+id/age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_person_outline_24"
-                        android:drawablePadding="10dp"
-                        android:inputType="number" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
