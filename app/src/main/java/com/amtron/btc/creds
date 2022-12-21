@@ -4,6 +4,8 @@ url: 103.158.204.169/manasnwp/manas_app/public/api/
 API:
 1. login: login
 
+mobile,password
+
 {
     "status": 1,
     "data": {
