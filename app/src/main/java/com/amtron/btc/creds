@@ -3,3 +3,16 @@ url: 103.158.204.169/manasnwp/manas_app/public/api/
 
 API:
 1. login: login
+
+{
+    "status": 1,
+    "data": {
+        "user": {
+            "id": 1,
+            "is_active": 1,
+            "token": "N@1RSDdNo9vbxICUZym-EFd$nasMZE.$mOHWmb$xgpeRPw-WFC1671606417",
+            "mobile_no": "9999999999"
+        }
+    },
+    "message": "Login Successful"
+}
