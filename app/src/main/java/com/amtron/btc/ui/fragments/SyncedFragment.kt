@@ -75,7 +75,7 @@ class SyncedFragment : Fragment() {
                 NotificationsHelper().getErrorAlert(mContext, "No Internet Connection Available")
             } else {
                 //get masterData from server
-                fetchSyncedRecords()
+//                fetchSyncedRecords()
             }
         }
 
@@ -98,43 +98,43 @@ class SyncedFragment : Fragment() {
         }
     }
 
-    private fun fetchSyncedRecords() {
-        binding.progressbar.show()
-        val api = RetrofitHelper.getInstance().create(Client::class.java)
-        GlobalScope.launch {
-            val call: Call<JsonObject> = api.getSyncedRecords(
-                recordsList
-            )
-            call.enqueue(object : Callback<JsonObject> {
-                @SuppressLint("CommitPrefEdits", "NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<JsonObject>,
-                    response: Response<JsonObject>
-                ) {
-                    if (response.isSuccessful) {
-                        binding.progressbar.hide()
-                        val helper = ResponseHelper()
-                        helper.ResponseHelper(response.body())
-                        if (helper.isStatusSuccessful()) {
-//                            val syncedMasterDataList = Gson().fromJson(
-//                                helper.getDataAsString(),
-//                                object : TypeToken<List<MasterData>>() {}.type
-//                            )
-                        } else {
-                            NotificationsHelper().getErrorAlert(mContext, helper.getErrorMsg())
-                        }
-                    } else {
-                        NotificationsHelper().getErrorAlert(
-                            mContext,
-                            "Response Error Code" + response.message()
-                        )
-                    }
-                }
-
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    NotificationsHelper().getErrorAlert(mContext, "Server Error")
-                }
-            })
-        }
-    }
+//    private fun fetchSyncedRecords() {
+//        binding.progressbar.show()
+//        val api = RetrofitHelper.getInstance().create(Client::class.java)
+//        GlobalScope.launch {
+//            val call: Call<JsonObject> = api.getSyncedRecords(
+//                recordsList
+//            )
+//            call.enqueue(object : Callback<JsonObject> {
+//                @SuppressLint("CommitPrefEdits", "NotifyDataSetChanged")
+//                override fun onResponse(
+//                    call: Call<JsonObject>,
+//                    response: Response<JsonObject>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        binding.progressbar.hide()
+//                        val helper = ResponseHelper()
+//                        helper.ResponseHelper(response.body())
+//                        if (helper.isStatusSuccessful()) {
+////                            val syncedMasterDataList = Gson().fromJson(
+////                                helper.getDataAsString(),
+////                                object : TypeToken<List<MasterData>>() {}.type
+////                            )
+//                        } else {
+//                            NotificationsHelper().getErrorAlert(mContext, helper.getErrorMsg())
+//                        }
+//                    } else {
+//                        NotificationsHelper().getErrorAlert(
+//                            mContext,
+//                            "Response Error Code" + response.message()
+//                        )
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+//                    NotificationsHelper().getErrorAlert(mContext, "Server Error")
+//                }
+//            })
+//        }
+//    }
 }

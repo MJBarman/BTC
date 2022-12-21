@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -52,6 +53,8 @@ class HomeActivity : AppCompatActivity() {
         val headerView: View = navView.getHeaderView(0)
         val closeNavView: ImageView = headerView.findViewById(R.id.closeNavView)
         user = Gson().fromJson(userString, User::class.java)
+
+        Log.d("token", user.token.toString())
 
         binding.toggle.setOnClickListener {
             drawerLayout.openDrawer(navView)
@@ -135,8 +138,7 @@ class HomeActivity : AppCompatActivity() {
         ok?.setOnClickListener {
             finishAffinity()
             Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
-            user.login = false
-            editor.putString("user", Gson().toJson(user))
+            editor.remove("user")
             editor.apply()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

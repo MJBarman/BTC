@@ -9,7 +9,9 @@ import com.amtron.btc.databinding.ActivityRegisterBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.model.User
 import com.google.gson.Gson
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -32,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 if (binding.phoneNumber.text.toString().length == 10) {
                     if (binding.password.text.toString() == binding.confirmPassword.text.toString()) {
-                        user.mobile = binding.phoneNumber.text.toString()
+                        user.mobile_no = binding.phoneNumber.text.toString()
                         user.password = binding.confirmPassword.text.toString()
                         editor.putString("userString", Gson().toJson(user))
                         val intent = Intent(applicationContext, HomeActivity::class.java)

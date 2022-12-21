@@ -10,14 +10,9 @@ import retrofit2.http.POST
 interface Client {
     @Headers("Accept: application/json")
     @FormUrlEncoded
-    @POST("")
-    fun getSyncedRecords(
-        @Field("masterData") masterData: String?
+    @POST("login")
+    fun login(
+        @Field("mobile") mobile: String?,
+        @Field("password") password: String?
     ) : Call<JsonObject>
-
-    /*@Headers("Accept: application/json")
-    @GET("getSourceGhats")
-    fun getSrcGhats(
-        @Header("Authorization") bearer: String?
-    ): Call<JsonObject>*/
 }

@@ -9,8 +9,8 @@ import java.security.NoSuchAlgorithmException
 import java.util.concurrent.TimeUnit
 
 object RetrofitHelper {
-    private const val basePath = ""
-    private const val apiUrl = basePath + ""
+    private const val basePath = "http://103.158.204.169/manasnwp/manas_app/public/"
+    private const val apiUrl = basePath + "api/"
     private var mClient: OkHttpClient? = null
 
     private val client: OkHttpClient
