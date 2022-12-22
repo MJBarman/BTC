@@ -4,22 +4,19 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import com.amtron.btc.R
 import com.amtron.btc.databinding.ActivityHomeBinding
 import com.amtron.btc.helper.NotificationsHelper
-import com.amtron.btc.model.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
@@ -27,11 +24,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    private lateinit var userString: String
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-    private lateinit var user: User
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -39,22 +35,16 @@ class HomeActivity : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        userString = sharedPreferences.getString("user", "").toString()
 
         val passwordChange = intent.getStringExtra("password update")
         if (passwordChange.equals("success")) {
             NotificationsHelper().getSuccessAlert(this, "Password successfully updated")
         }
-
-
         drawerLayout = binding.drawerLayout
         navView = binding.navView
 
         val headerView: View = navView.getHeaderView(0)
         val closeNavView: ImageView = headerView.findViewById(R.id.closeNavView)
-        user = Gson().fromJson(userString, User::class.java)
-
-        Log.d("token", user.token.toString())
 
         binding.toggle.setOnClickListener {
             drawerLayout.openDrawer(navView)
@@ -95,33 +85,32 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(navView)) {
-            drawerLayout.closeDrawer(navView)
-        } else {
-            val exit = BottomSheetDialog(this)
-            exit.setContentView(R.layout.bottom_sheet_exit)
-            val exitText = exit.findViewById<TextView>(R.id.exitText)
-            val exitHeaderText = exit.findViewById<TextView>(R.id.exitHeaderText)
-            val ok = exit.findViewById<Button>(R.id.go_back_btn)
-            val continueBooking = exit.findViewById<Button>(R.id.con_book)
-            exitText?.text = "Are you sure you want to exit the app?"
-            exitHeaderText?.text = "EXIT?"
-            ok?.text = "EXIT"
-            continueBooking?.text = "CANCEL"
-            exit.show()
+        onBackPressedDispatcher.addCallback(this) {
+            if (drawerLayout.isDrawerOpen(navView)) {
+                drawerLayout.closeDrawer(navView)
+            } else {
+                val exit = BottomSheetDialog(this@HomeActivity)
+                exit.setContentView(R.layout.bottom_sheet_exit)
+                val exitText = exit.findViewById<TextView>(R.id.exitText)
+                val exitHeaderText = exit.findViewById<TextView>(R.id.exitHeaderText)
+                val ok = exit.findViewById<Button>(R.id.go_back_btn)
+                val continueBooking = exit.findViewById<Button>(R.id.con_book)
+                exitText?.text = "Are you sure you want to exit the app?"
+                exitHeaderText?.text = "EXIT?"
+                ok?.text = "EXIT"
+                continueBooking?.text = "CANCEL"
+                exit.show()
 
-            ok?.setOnClickListener {
-                finishAffinity()
+                ok?.setOnClickListener {
+                    finishAffinity()
+                }
+                continueBooking?.setOnClickListener { exit.dismiss() }
             }
-            continueBooking?.setOnClickListener { exit.dismiss() }
         }
     }
 
-
+    @SuppressLint("SetTextI18n")
     private fun showLogoutDialog() {
         val logout = BottomSheetDialog(this)
         logout.setContentView(R.layout.bottom_sheet_exit)
@@ -138,7 +127,7 @@ class HomeActivity : AppCompatActivity() {
         ok?.setOnClickListener {
             finishAffinity()
             Toast.makeText(this, "Successfully logged out", Toast.LENGTH_SHORT).show()
-            editor.remove("user")
+            editor.remove("loginCredentials")
             editor.apply()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

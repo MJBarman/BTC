@@ -47,7 +47,7 @@ class UnSyncedFragment : Fragment() {
 
         mContext = container!!.context
         sharedPreferences =
-            this.activity!!.getSharedPreferences("file", AppCompatActivity.MODE_PRIVATE)
+            this.requireActivity().getSharedPreferences("file", AppCompatActivity.MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
         masterDataList = arrayListOf()
@@ -71,7 +71,7 @@ class UnSyncedFragment : Fragment() {
             recordsList = Gson().toJson(masterDataList)
 
             if (masterDataList.isEmpty()) {
-                activity!!.runOnUiThread {
+                requireActivity().runOnUiThread {
                     NotificationsHelper().getWarningAlert(
                         mContext,
                         "No Records Found"

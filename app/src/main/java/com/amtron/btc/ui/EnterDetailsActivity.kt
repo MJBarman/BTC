@@ -1,7 +1,9 @@
 package com.amtron.btc.ui
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -11,18 +13,27 @@ import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityEnterDetailsBinding
 import com.amtron.btc.helper.DateHelper
 import com.amtron.btc.helper.NotificationsHelper
-import com.amtron.btc.model.MasterData
+import com.amtron.btc.model.*
+import com.google.gson.Gson
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 @DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEnterDetailsBinding
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterData: MasterData
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var loginCredentials: LoginCredentials
+    private lateinit var genderList: ArrayList<Gender>
+    private lateinit var countryList: ArrayList<Country>
+    private lateinit var stateList: ArrayList<State>
+    private lateinit var domicileList: ArrayList<Domicile>
     private var stateName = ""
     private var country = ""
 
@@ -31,13 +42,24 @@ class EnterDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEnterDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        appDatabase = AppDatabase.getDatabase(this)
+
         val fadeAnimation = android.view.animation.AnimationUtils.loadAnimation(
             this,
             com.google.android.material.R.anim.abc_grow_fade_in_from_bottom
         )
 
+        sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        val loginCredentialsString = sharedPreferences.getString("loginCredentials", "DEFAULT")
+        loginCredentials = Gson().fromJson(loginCredentialsString, LoginCredentials::class.java)
 
-        appDatabase = AppDatabase.getDatabase(this)
+        genderList = loginCredentials.genders as ArrayList<Gender>
+        countryList = loginCredentials.countries as ArrayList<Country>
+        stateList = loginCredentials.states as ArrayList<State>
+        domicileList = loginCredentials.domicile as ArrayList<Domicile>
+
         val stateList = resources.getStringArray(R.array.state_list)
         val foreignList = resources.getStringArray(R.array.foreign_list)
 

@@ -9,7 +9,6 @@ import com.amtron.btc.databinding.ActivityLoginBinding
 import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.helper.ResponseHelper
 import com.amtron.btc.model.LoginCredentials
-import com.amtron.btc.model.User
 import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
 import com.google.gson.Gson
@@ -27,8 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    private lateinit var user: User
-    private lateinit var userString: String
+    private lateinit var loginCredentialsString: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +35,11 @@ class LoginActivity : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences("file", MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        userString = sharedPreferences.getString("user", "").toString()
-        if (userString.isNotEmpty()) {
+        loginCredentialsString = sharedPreferences.getString("loginCredentials", "").toString()
+        if (loginCredentialsString.isNotEmpty()) {
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             startActivity(intent)
         }
-        user = User()
 
         binding.buttonProceed.setOnClickListener {
             if (binding.phoneNumber.text.toString().isEmpty()
@@ -73,12 +70,19 @@ class LoginActivity : AppCompatActivity() {
                                             helper.getDataAsString(),
                                             object : TypeToken<LoginCredentials>() {}.type
                                         )
-                                        editor.putString("loginCredentials", Gson().toJson(loginCredentials))
+                                        editor.putString(
+                                            "loginCredentials",
+                                            Gson().toJson(loginCredentials)
+                                        )
                                         editor.apply()
-                                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                                        val intent =
+                                            Intent(applicationContext, HomeActivity::class.java)
                                         startActivity(intent)
                                     } else {
-                                        NotificationsHelper().getErrorAlert(this@LoginActivity, helper.getErrorMsg())
+                                        NotificationsHelper().getErrorAlert(
+                                            this@LoginActivity,
+                                            helper.getErrorMsg()
+                                        )
                                     }
                                 } else {
                                     binding.progressbar.hide()
@@ -91,7 +95,10 @@ class LoginActivity : AppCompatActivity() {
 
                             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                                 binding.progressbar.hide()
-                                NotificationsHelper().getErrorAlert(this@LoginActivity, "Server Error")
+                                NotificationsHelper().getErrorAlert(
+                                    this@LoginActivity,
+                                    "Server Error"
+                                )
                             }
                         })
                     }

@@ -24,6 +24,7 @@ import com.amtron.btc.network.Client
 import com.amtron.btc.network.RetrofitHelper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,6 +32,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@DelicateCoroutinesApi
 class SyncedFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -59,8 +61,6 @@ class SyncedFragment : Fragment() {
         sharedPreferences =
             this.requireActivity().getSharedPreferences("file", AppCompatActivity.MODE_PRIVATE)
         editor = sharedPreferences.edit()
-
-
 
         masterDataList = arrayListOf()
         appDatabase = AppDatabase.getDatabase(mContext)
