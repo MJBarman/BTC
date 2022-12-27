@@ -18,7 +18,7 @@ interface Client {
 
     @Headers("Accept: application/json")
     @FormUrlEncoded
-    @POST("visitorMasterData")
+    @POST("upload-visitor-data")
     fun sendMasterData(
         @Field("masterData") masterData: String?
     ) : Call<JsonObject>

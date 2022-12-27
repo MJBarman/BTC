@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -110,7 +111,7 @@ class UnSyncedFragment : Fragment() {
                                     val helper = ResponseHelper()
                                     helper.ResponseHelper(response.body())
                                     if (helper.isStatusSuccessful()) {
-                                        getAndUpdateMasterData(masterDataList)
+//                                        getAndUpdateMasterData(masterDataList)
                                     } else {
                                         NotificationsHelper().getErrorAlert(
                                             mContext,
@@ -159,6 +160,7 @@ class UnSyncedFragment : Fragment() {
             masterDataList.addAll(appDatabase.MasterDataDao().getUnSyncedMasterData())
 
             recordsList = Gson().toJson(masterDataList)
+            Log.d("data", recordsList)
 
             if (masterDataList.isEmpty()) {
                 requireActivity().runOnUiThread {
