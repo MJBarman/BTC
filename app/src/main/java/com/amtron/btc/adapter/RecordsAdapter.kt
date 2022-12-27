@@ -1,19 +1,17 @@
 package com.amtron.btc.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.amtron.btc.R
-import com.amtron.btc.model.MasterData
+import com.amtron.btc.model.*
 import com.google.android.material.button.MaterialButton
 
 class RecordsAdapter(private val masterDataList: List<MasterData>) :
     RecyclerView.Adapter<RecordsAdapter.ViewHolder>() {
-
     private lateinit var mItemClickListener: OnRecyclerViewItemClickListener
 
     fun setOnItemClickListener(mItemClickListener: OnRecyclerViewItemClickListener?) {
@@ -33,14 +31,19 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) :
         holder.slNo.text = (position + 1).toString()
         holder.visitorName.text = masterData.name
         holder.ageAndSex.text =
-            StringBuilder().append(masterData.age).append(" (").append(masterData.gender + ")")
-        if (masterData.residency.isNotEmpty()) {
-            holder.residency.text =
-                masterData.state + " (" + masterData.residency + "), " + masterData.country
+            StringBuilder().append(masterData.age).append(" (")
+                .append(masterData.gender.gender_name + ")")
+        if (masterData.nationality == "I") {
+            if (masterData.domicile != null) {
+                holder.residency.text =
+                    "" + masterData.state!!.state_name + " (" + masterData.domicile.dom_name + "), INDIA"
+            } else {
+                holder.residency.text = "" + masterData.state!!.state_name + ", INDIA"
+            }
         } else {
-            holder.residency.text = masterData.state + ", " + masterData.country
-
+            holder.residency.text = "" + masterData.country!!.country_name
         }
+
 
         /*holder.expand.setOnClickListener {
             if (holder.linearLayout.visibility == View.VISIBLE) {
@@ -65,12 +68,6 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) :
                 holder.linearLayout.visibility = View.VISIBLE
             }
         }*/
-
-        holder.deleteRecord.setOnClickListener {
-            if (mItemClickListener != null) {
-                mItemClickListener.onItemClickListener(position, "delete")
-            }
-        }
     }
 
     override fun getItemCount(): Int {
@@ -79,7 +76,6 @@ class RecordsAdapter(private val masterDataList: List<MasterData>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //        val card: MaterialCardView = itemView.findViewById(R.id.dataCard)
-        val deleteRecord: MaterialButton = itemView.findViewById(R.id.delete_record)
 
         //        val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
 //        val expand: TextView = itemView.findViewById(R.id.expand)

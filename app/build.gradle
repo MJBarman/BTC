@@ -52,7 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
-    //Bottom Navigation
+    //SweetAlert
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
 
     implementation 'androidx.preference:preference:1.2.0'

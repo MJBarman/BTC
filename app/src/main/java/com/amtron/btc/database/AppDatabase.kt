@@ -1,15 +1,21 @@
 package com.amtron.btc.database
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.amtron.btc.dao.MasterDataDao
-import com.amtron.btc.model.MasterData
+import com.amtron.btc.helper.Converters
+import com.amtron.btc.model.*
 
-@Database(entities = [MasterData::class], version = 1, exportSchema = false)
-abstract class AppDatabase: RoomDatabase() {
+@Database(
+    entities = [MasterData::class],
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun MasterDataDao(): MasterDataDao
 
     companion object {

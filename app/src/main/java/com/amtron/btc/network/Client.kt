@@ -15,4 +15,11 @@ interface Client {
         @Field("mobile") mobile: String?,
         @Field("password") password: String?
     ) : Call<JsonObject>
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("visitorMasterData")
+    fun sendMasterData(
+        @Field("masterData") masterData: String?
+    ) : Call<JsonObject>
 }

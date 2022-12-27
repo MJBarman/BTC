@@ -3,12 +3,14 @@ package com.amtron.btc.ui
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.amtron.btc.R
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.ActivityEnterDetailsBinding
 import com.amtron.btc.helper.DateHelper
@@ -20,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 @DelicateCoroutinesApi
 class EnterDetailsActivity : AppCompatActivity() {
@@ -29,13 +30,19 @@ class EnterDetailsActivity : AppCompatActivity() {
     private lateinit var masterData: MasterData
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private lateinit var gender: Gender
+    private lateinit var state: State
+    private lateinit var country: Country
+    private lateinit var domicile: Domicile
     private lateinit var loginCredentials: LoginCredentials
     private lateinit var genderList: ArrayList<Gender>
     private lateinit var countryList: ArrayList<Country>
     private lateinit var stateList: ArrayList<State>
     private lateinit var domicileList: ArrayList<Domicile>
-    private var stateName = ""
-    private var country = ""
+    private lateinit var grb: RadioButton
+    private lateinit var drb: RadioButton
+    private var countryStringList = arrayListOf<String>()
+    private var stateStringList = arrayListOf<String>()
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,33 +67,75 @@ class EnterDetailsActivity : AppCompatActivity() {
         stateList = loginCredentials.states as ArrayList<State>
         domicileList = loginCredentials.domicile as ArrayList<Domicile>
 
-        val stateList = resources.getStringArray(R.array.state_list)
-        val foreignList = resources.getStringArray(R.array.foreign_list)
+        for (c in countryList) {
+            countryStringList.add(c.country_name!!)
+        }
+        for (s in stateList) {
+            stateStringList.add(s.state_name!!)
+        }
 
         val stateAdapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item, stateList
+            this, android.R.layout.simple_spinner_dropdown_item, stateStringList
         )
         val foreignAdapter = ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item, foreignList
+            this, android.R.layout.simple_spinner_dropdown_item, countryStringList
         )
+
+        val grg = binding.rgGender
+        grg.gravity = Gravity.CENTER
+        grg.orientation = RadioGroup.HORIZONTAL
+        for (i in genderList.indices) {
+            grb = RadioButton(this)
+            grb.setPadding(5, 10, 5, 10)
+            grb.text = genderList[i].gender_name
+            grb.id = genderList[i].id!!
+            grg.addView(grb)
+        }
+        grg.setOnCheckedChangeListener { _, checkedId ->
+            for(i in genderList) {
+                if (i.id == checkedId) {
+                    gender = i
+                    break
+                }
+            }
+        }
+
+        val drg = binding.rgResidency
+        drg.gravity = Gravity.CENTER
+        drg.orientation = RadioGroup.HORIZONTAL
+        for (i in domicileList.indices) {
+            drb = RadioButton(this)
+            drb.setPadding(5, 10, 5, 10)
+            drb.text = domicileList[i].dom_name
+            drb.id = domicileList[i].id!!
+            drg.addView(drb)
+        }
+        drg.setOnCheckedChangeListener { _, checkedId ->
+            for(i in domicileList) {
+                if (i.id == checkedId) {
+                    domicile = i
+                    break
+                }
+            }
+        }
 
         binding.spinnerStateDropdown.setAdapter(stateAdapter)
         binding.spinnerCountryDropdown.setAdapter(foreignAdapter)
 
-        binding.spinnerStateDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            stateName = adapterView.getItemAtPosition(position).toString()
-            if (stateName == "Assam") {
+        binding.spinnerStateDropdown.setOnItemClickListener { _, _, position, _ ->
+            state = stateList[position]
+            if (state.state_name == "ASSAM") {
                 binding.residencyLl.visibility = View.VISIBLE
                 binding.residencyLl.startAnimation(fadeAnimation)
             } else {
                 binding.residencyLl.visibility = View.GONE
             }
         }
-        binding.spinnerCountryDropdown.setOnItemClickListener { adapterView, view, position, id ->
-            country = adapterView.getItemAtPosition(position).toString()
+        binding.spinnerCountryDropdown.setOnItemClickListener { _, _, position, _ ->
+            country = countryList[position]
         }
 
-        binding.rbIndian.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.rbIndian.setOnCheckedChangeListener { _, _ ->
             binding.spinnerStateDropdown.text = null
             if (binding.rbIndian.isChecked) {
                 if (binding.spinnerCountry.isVisible) {
@@ -97,7 +146,7 @@ class EnterDetailsActivity : AppCompatActivity() {
             }
         }
 
-        binding.rbForeign.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.rbForeign.setOnCheckedChangeListener { _, _ ->
             if (binding.rbForeign.isChecked) {
                 if (binding.residencyLl.isVisible || binding.spinnerState.isVisible) {
                     binding.residencyLl.visibility = View.GONE
@@ -117,77 +166,64 @@ class EnterDetailsActivity : AppCompatActivity() {
         val date = DateHelper().getTodayOrTomorrow("today", "dd-MM-yyyy")
         val name = binding.name.text.toString().uppercase(Locale.getDefault())
         val age = binding.age.text.toString().uppercase(Locale.getDefault())
-        var residency = ""
-        var gender = ""
         var nationality = ""
 
-        if (binding.rbMale.isChecked && !binding.rbFemale.isChecked) {
-            gender = "Male"
-        } else if (binding.rbFemale.isChecked && !binding.rbMale.isChecked) {
-            gender = "Female"
-        }
-
         if (binding.rbIndian.isChecked && !binding.rbForeign.isChecked) {
-            nationality = "Indian"
+            nationality = "I"
         } else if (binding.rbForeign.isChecked && !binding.rbIndian.isChecked) {
-            nationality = "foreign"
+            nationality = "F"
         }
 
-        if (binding.rbBtr.isChecked && !binding.rbNonbtr.isChecked) {
-            residency = "BTR"
-        } else if (binding.rbNonbtr.isChecked && !binding.rbBtr.isChecked) {
-            residency = "Non BTR"
-        }
-
-        if (name.isEmpty() || age.isEmpty() || gender.isEmpty() || nationality.isEmpty()
-            || date.isEmpty()
+        if (name.isEmpty() || age.isEmpty() || nationality.isEmpty() || date.isEmpty()                        //check gender
         ) {
             NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
         } else {
-            if (nationality == "Indian") {
-                if (stateName.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
-                } else if (stateName == "Assam") {
-                    if (residency.isEmpty()) {
-                        NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+            if (nationality == "I") {
+                if (state.id == 0) {
+                    NotificationsHelper().getErrorAlert(this, "Please enter state")
+                } else {
+                    if (state.state_name == "ASSAM") {
+                        if (domicile.id == 0) {
+                            NotificationsHelper().getErrorAlert(this, "Please select residency")
+                        } else {
+                            addData(
+                                name,
+                                Integer.parseInt(age),
+                                gender,
+                                null,
+                                state,
+                                nationality,
+                                domicile,
+                                date
+                            )
+                            reset()
+                        }
                     } else {
                         addData(
                             name,
                             Integer.parseInt(age),
                             gender,
-                            "India",
-                            stateName,
+                            null,
+                            state,
                             nationality,
-                            residency,
+                            null,
                             date
                         )
                         reset()
                     }
-                } else {
-                    addData(
-                        name,
-                        Integer.parseInt(age),
-                        gender,
-                        "India",
-                        stateName,
-                        nationality,
-                        "",
-                        date
-                    )
-                    reset()
                 }
-            } else if (nationality == "foreign") {
-                if (country.isEmpty()) {
-                    NotificationsHelper().getErrorAlert(this, "Please enter all the fields")
+            } else if (nationality == "F") {
+                if (country.id == 0) {
+                    NotificationsHelper().getErrorAlert(this, "Please enter country")
                 } else {
                     addData(
                         name,
                         Integer.parseInt(age),
                         gender,
                         country,
-                        "",
+                        null,
                         nationality,
-                        "",
+                        null,
                         date
                     )
                     reset()
@@ -208,18 +244,16 @@ class EnterDetailsActivity : AppCompatActivity() {
         binding.spinnerState.visibility = View.GONE
         binding.residencyLl.visibility = View.GONE
         NotificationsHelper().getSuccessAlert(this, "Details saved successfully")
-
     }
 
     private fun addData(
-        name: String, age: Int, gender: String, country: String, stateName: String,
-        nationality: String, residency: String, date: String
+        name: String, age: Int, gender: Gender, country: Country?, stateName: State?,
+        nationality: String, residency: Domicile?, date: String
     ) {
         masterData = MasterData(
             null, name, age, gender, country,
             stateName, nationality, residency, date, false
         )
-
         saveData(masterData)
     }
 
@@ -228,6 +262,4 @@ class EnterDetailsActivity : AppCompatActivity() {
             appDatabase.MasterDataDao().insert(masterData)
         }
     }
-
-
 }

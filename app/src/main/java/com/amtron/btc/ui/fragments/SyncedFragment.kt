@@ -1,10 +1,8 @@
 package com.amtron.btc.ui.fragments
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,25 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.amtron.btc.R
 import com.amtron.btc.adapter.RecordsAdapter
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.FragmentSyncedBinding
 import com.amtron.btc.helper.NotificationsHelper
-import com.amtron.btc.helper.ResponseHelper
-import com.amtron.btc.helper.Util
-import com.amtron.btc.model.*
-import com.amtron.btc.network.Client
-import com.amtron.btc.network.RetrofitHelper
+import com.amtron.btc.model.MasterData
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @DelicateCoroutinesApi
 class SyncedFragment : Fragment() {
@@ -41,11 +30,6 @@ class SyncedFragment : Fragment() {
     private lateinit var masterDataAdapter: RecordsAdapter
     private lateinit var appDatabase: AppDatabase
     private lateinit var masterDataList: ArrayList<MasterData>
-    private lateinit var countries: ArrayList<Country>
-    private lateinit var states: ArrayList<State>
-    private lateinit var domicile: ArrayList<Domicile>
-    private lateinit var loginCredentials: LoginCredentials
-    private var checkInternet: Boolean = false
     private var recordsList: String = ""
     private var _binding: FragmentSyncedBinding? = null
     private val binding get() = _binding!!
@@ -53,7 +37,7 @@ class SyncedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSyncedBinding.inflate(inflater, container, false)
 
@@ -73,16 +57,6 @@ class SyncedFragment : Fragment() {
 
         masterDataAdapter = RecordsAdapter(masterDataList)
         recyclerView.adapter = masterDataAdapter
-
-        binding.sync.setOnClickListener {
-            checkInternet = Util().isOnline(mContext)
-            if (!checkInternet) {
-                NotificationsHelper().getErrorAlert(mContext, "No Internet Connection Available")
-            } else {
-                //get masterData from server
-//                fetchSyncedRecords()
-            }
-        }
 
         return binding.root
     }

@@ -2,7 +2,6 @@ package com.amtron.btc.dao
 
 import androidx.room.*
 import com.amtron.btc.model.MasterData
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MasterDataDao {
@@ -21,6 +20,9 @@ interface MasterDataDao {
     
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(masterData: MasterData)
+
+    @Query("UPDATE MasterData SET isSynced= 1 WHERE masterId = :id")
+    suspend fun updateIsSyncedToTrueById(id: Int)
     
     @Query("DELETE FROM MasterData")
     suspend fun deleteAll()
