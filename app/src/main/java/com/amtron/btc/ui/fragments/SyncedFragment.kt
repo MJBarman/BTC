@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amtron.btc.adapter.RecordsAdapter
 import com.amtron.btc.database.AppDatabase
 import com.amtron.btc.databinding.FragmentSyncedBinding
-import com.amtron.btc.helper.NotificationsHelper
 import com.amtron.btc.model.MasterData
 import com.google.gson.Gson
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -50,7 +49,7 @@ class SyncedFragment : Fragment() {
         appDatabase = AppDatabase.getDatabase(mContext)
         readData()
 
-        recyclerView = binding.recordsRecyclerView
+        recyclerView = binding.syncedRecordsRecyclerView
 
         val linearLayoutManager = LinearLayoutManager(mContext)
         recyclerView.layoutManager = linearLayoutManager
@@ -68,10 +67,13 @@ class SyncedFragment : Fragment() {
 
             if (masterDataList.isEmpty()) {
                 requireActivity().runOnUiThread {
-                    NotificationsHelper().getWarningAlert(
-                        mContext,
-                        "No Records Found"
-                    )
+//                    binding.syncedRecordsRecyclerView.visibility = View.GONE
+//                    binding.txtNoSyncedRecordsFound.visibility = View.VISIBLE
+                }
+            } else {
+                requireActivity().runOnUiThread {
+//                    binding.syncedRecordsRecyclerView.visibility = View.VISIBLE
+//                    binding.txtNoSyncedRecordsFound.visibility = View.GONE
                 }
             }
         }

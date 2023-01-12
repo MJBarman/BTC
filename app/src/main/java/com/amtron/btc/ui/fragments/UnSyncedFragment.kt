@@ -49,6 +49,7 @@ class UnSyncedFragment : Fragment() {
     private var _binding: FragmentUnsyncedBinding? = null
     private val binding get() = _binding!!
     private var checkInternet: Boolean = false
+    private var recordsPresent = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,16 +67,22 @@ class UnSyncedFragment : Fragment() {
         appDatabase = AppDatabase.getDatabase(mContext)
         readData()
 
-        recyclerView = binding.recordsRecyclerView
+        recyclerView = binding.unSyncedRecordsRecyclerView
 
         val linearLayoutManager = LinearLayoutManager(mContext)
         recyclerView.layoutManager = linearLayoutManager
-
         masterDataAdapter = RecordsAdapter(masterDataList)
         recyclerView.adapter = masterDataAdapter
 
         binding.syncBtn.setOnClickListener {
-            syncRecords()
+            if (recordsPresent) {
+                syncRecords()
+            } else {
+                NotificationsHelper().getWarningAlert(
+                    mContext,
+                    "No Records Found"
+                )
+            }
         }
 
         return binding.root
@@ -111,7 +118,8 @@ class UnSyncedFragment : Fragment() {
                                     val helper = ResponseHelper()
                                     helper.ResponseHelper(response.body())
                                     if (helper.isStatusSuccessful()) {
-//                                        getAndUpdateMasterData(masterDataList)
+                                        binding.progressbar.hide()
+                                        getAndUpdateMasterData(masterDataList)
                                     } else {
                                         NotificationsHelper().getErrorAlert(
                                             mContext,
@@ -145,29 +153,30 @@ class UnSyncedFragment : Fragment() {
         for (masterData in masterDataList) {
             GlobalScope.launch(Dispatchers.IO) {
                 appDatabase.MasterDataDao().updateIsSyncedToTrueById(masterData.masterId!!)
-                if (masterDataList.isEmpty()) {
-                    requireActivity().runOnUiThread {
-                        NotificationsHelper().getSuccessAlert(mContext, "Records Synced")
-                        notBox.dismiss()
-                    }
-                }
             }
+        }
+        requireActivity().runOnUiThread {
+            NotificationsHelper().getSuccessAlert(mContext, "Records Synced")
+            notBox.dismiss()
+            requireActivity().recreate()
         }
     }
 
     private fun readData() {
         GlobalScope.launch(Dispatchers.IO) {
             masterDataList.addAll(appDatabase.MasterDataDao().getUnSyncedMasterData())
-
             recordsList = Gson().toJson(masterDataList)
-            Log.d("data", recordsList)
 
             if (masterDataList.isEmpty()) {
                 requireActivity().runOnUiThread {
-                    NotificationsHelper().getWarningAlert(
-                        mContext,
-                        "No Records Found"
-                    )
+//                    binding.unSyncedRecordsRecyclerView.visibility = View.GONE
+//                    binding.txtNoUnSyncedRecordsFound.visibility = View.VISIBLE
+                    recordsPresent = false
+                }
+            } else {
+                requireActivity().runOnUiThread {
+//                    binding.unSyncedRecordsRecyclerView.visibility = View.VISIBLE
+//                    binding.txtNoUnSyncedRecordsFound.visibility = View.GONE
                 }
             }
         }
